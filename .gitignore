@@ -1,0 +1,35 @@
+# Compiled Rust
+target/
+debug/
+
+# Dependências temporárias e caches
+node_modules/
+.npm/
+
+# Ambientes / Segredos
+.env
+.env.*
+.env.local
+.env.test
+.env.production
+*.pem
+*.key
+*.cert
+*.pfx
+
+# Arquivos de Sistema e Editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Arquivos de Log e Backups Rust
+*.log
+**/*.rs.bk
+
+# Artefatos internos do Windows MSVC (se ocorrerem)
+*.pdb
+*.lib
+*.exp
