@@ -1,37 +1,39 @@
 # 3BEP Open Science Archive
 
-Bem-vindo ao **3BEP Labs Archive**, o cartório da verdade física determinística.
+*Read this manifesto in [Portuguese (BR)](README.pt-br.md).*
 
-## O Manifesto do Determinismo 3BEP
+Welcome to the **3BEP Labs Archive**, the public notary of deterministic physical truth.
 
-A ciência computacional moderna vive sob uma ilusão. Há décadas, a academia orbita um abismo matemático chamado **IEEE 754** (Ponto Flutuante). De simulações astrofísicas de galáxias à dinâmica interatômica para dobramento de peptídeos, pesquisadores ao redor do mundo publicam "avanços" baseados em uma infraestrutura que sofre de uma inevitável "evaporação numérica". A ordem das operações afeta o vetor resultante. Células e átomos sofrem alucinações termodinâmicas no longo prazo. O resultado? Os cientistas inserem matrizes artificiais de atenuação térmica (*softening*), ou trocam suas bibliotecas falhas por IA *Blackbox* num esforço desesperado de tapar as imperfeições da própria matemática. Isso não é modelo físico; é aproximação estocástica com maquiagem estatística.
+## The 3BEP Determinism Manifesto
 
-Nós do **3BEP Labs** estabelecemos o "Santuário", um núcleo construído para abrigar apenas matemática estrita **I64F64**, onde cada fração é processada sobre as fundações inabaláveis de inteiros grandes (Determinismo Puro em Ponto Fixo de 128 Bits). Na nossa liturgia de código, a Primeira Lei da Termodinâmica não é uma tolerância métrica, **ela é coercitiva**. 
+Modern computational science lives under an illusion. For decades, academia has orbited a mathematical abyss known as **IEEE 754** (Floating Point). From astrophysical simulations of galaxies to interatomic dynamics for peptide folding, researchers worldwide publish "breakthroughs" based on an infrastructure that suffers from inevitable "numerical evaporation". The order of operations changes the resulting vector. Cells and atoms suffer thermodynamic hallucinations over time. The result? Scientists insert artificial dampening matrices (*softening*) or swap their flawed libraries for *Blackbox* AI architectures in a desperate attempt to cover up the math's imperfections. This is not a physical model; it is stochastic approximation with statistical makeup.
 
-### Nossa Missão
+We at **3BEP Labs** established the "Sanctuary", a core built to house only strict **I64F64** math, where every fraction is processed on the unshakable foundations of large integers (Pure Determinism in 128-Bit Fixed Point). In our code liturgy, the First Law of Thermodynamics is not a metric tolerance—**it is coercive**.
 
-Este repositório encerra as tolerâncias perdoáveis. Ele será o repositório jurídico-tecnológico para a nossa missão:
+### Our Mission
 
-1. **Digital Twin of Science (Cemitério de Teorias):** Identificaremos artigos acadêmicos (arXiv, e similares) em que a fragilidade do modelo desmorona a estabilidade propagada. Reproduziremos os cálculos base através da matemática bit-a-bit do 3BEP para provar o momento e instante exatos de quando suas teses desabam no infinito;
-2. **Prior Art Incontestável:** O código base de matemática do 'Santuário' será auditável publicamente em Rust rigorosamente testado, desmentindo que dependemos de truques para estabilizar as simulações, entregando a garantia de Provas ZK-STARK.
+This repository ends forgivable tolerances. It will serve as our legal-technological repository for the following mission:
 
-**"A verdade física pertence a todos, mas a exploração comercial da nossa precisão exige o reconhecimento direto do Arquiteto."**
+1. **Digital Twin of Science (Theory Graveyard):** We will identify academic papers (from arXiv, etc.) where model fragility collapses propagated stability. We will reproduce their baseline calculations using 3BEP's bit-perfect math to prove the exact moment and tick when their theses collapse into infinity.
+2. **Indisputable Prior Art:** The mathematical codebase of the 'Sanctuary' will be publicly auditable in rigorously tested pure Rust, debunking claims that we rely on tricks to stabilize simulations, and delivering the guarantee of ZK-STARK Proofs.
 
-## Licença AGPL v3.0 e Soberania Tecnológica
+**"Physical truth belongs to everyone, but the commercial exploitation of our precision requires the direct acknowledgment of the Architect."**
 
-Nosso trabalho — os Motores I64F64 nativos, os Lacres STARK, e a translação do Universo via Rust puro (`#![no_std]`) — é protegido e exposto através da [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
+## AGPL v3.0 License and Technological Sovereignty
 
-Isso confere o peso definitivo da estratégia de soberania:
-- **Para Auditar a Ciência (Acadêmicos):** A transparência é absoluta. Sintam-se convidados a clonar, auditar e testar nossa infra-estrutura como prova de autoridade.
-- **Para Exibir Rentabilidade (Cloud/SaaS/Corporações):** A 'Brecha de Serviços Cloud' foi lacrada. Aqueles que usarem de nosso motor determinístico via rede ou serviços devem abrir 100% de seu ecossistema. Qualquer comercialização ou adaptação "software-as-a-service" que procure escapar destas diretrizes requer estritamente o recolhimento de uma **Licença Comercial (Dual-Licensing)** via contato conosco.
+Our work—the native I64F64 Engines, STARK Seals, and the translation of the Universe via pure Rust (`#![no_std]`)—is protected and exposed through the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
 
-## Estrutura do Repositório (Em breve)
+This grants the definitive weight of our sovereignty strategy:
+- **For Science Auditing (Academics):** Absolute transparency. Feel invited to clone, audit, and test our infrastructure as proof of authority.
+- **For Profit Displays (Cloud/SaaS/Corporations):** The 'Cloud Service Loophole' has been sealed. Those who use our deterministic engine via networks or services must open-source 100% of their ecosystem. Any commercialization or "software-as-a-service" adaptation seeking to bypass these guidelines strictly requires a **Commercial License (Dual-Licensing)** through contact with us.
 
-O repositório receberá em etapas as cratificadas de segurança nativa do Santuário e os módulos estritos do compilador, separados formalmente da casca (UI e lógicas privadas da Labs).
+## Repository Structure (Coming Soon)
 
-* `core_engine/` - As fundações nativas.
-* `cli_3bep/` - Ferramentas e integradores I64F64.
-* `arqueologia_preprints/` - Evidências, ZK-STARKs e as divergências mapeadas (As Lápides de *Float*).
+This repository will receive in stages the native security crates of the Sanctuary and the strict modules of the compiler, formally separated from our private shell (UI and private Labs logic).
+
+* `core_engine/` - Native foundations.
+* `cli_3bep/` - I64F64 integrators and tools.
+* `preprint_archaeology/` - Evidence, ZK-STARKs, and mapped divergences (The Float Graveyards).
 
 ---
-**3BEP Labs** | A Infraestrutura da Verdade Física.
+**3BEP Labs** | The Infrastructure of Physical Truth.
