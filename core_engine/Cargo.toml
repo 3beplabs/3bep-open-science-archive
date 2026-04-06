@@ -1,0 +1,16 @@
+[package]
+name = "core_engine"
+version = "0.1.0"
+edition = "2021"
+authors = ["3BEP Labs <opensource@3beplabs.com>"]
+description = "Deterministic I64F64 physics engine for Open Science auditing."
+repository = "https://github.com/3beplabs/3bep-open-science-archive"
+license = "AGPL-3.0-or-later"
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+# Fixed-point math (Absolute Determinism)
+fixed = { version = "1.23", features = ["serde"], default-features = false }
+serde = { version = "1.0", features = ["derive"], default-features = false }

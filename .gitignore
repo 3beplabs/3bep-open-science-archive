@@ -1,12 +1,13 @@
 # Compiled Rust
 target/
 debug/
+Cargo.lock
 
-# Dependências temporárias e caches
+# Temporary dependencies and caches
 node_modules/
 .npm/
 
-# Ambientes / Segredos
+# Environment / Secrets
 .env
 .env.*
 .env.local
@@ -17,7 +18,7 @@ node_modules/
 *.cert
 *.pfx
 
-# Arquivos de Sistema e Editor
+# System and Editor files
 .vscode/
 .idea/
 .DS_Store
@@ -25,11 +26,11 @@ Thumbs.db
 *.swp
 *~
 
-# Arquivos de Log e Backups Rust
+# Rust log files and backups
 *.log
 **/*.rs.bk
 
-# Artefatos internos do Windows MSVC (se ocorrerem)
+# Windows MSVC artifacts (if generated)
 *.pdb
 *.lib
 *.exp
