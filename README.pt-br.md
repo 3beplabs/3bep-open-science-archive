@@ -14,9 +14,9 @@ Nós do **3BEP Labs** estabelecemos o "Santuário", um núcleo construído para 
 
 Este repositório encerra as tolerâncias perdoáveis. Ele será o repositório jurídico-tecnológico para a nossa missão:
 
-1. **Digital Twin of Science (Cemitério de Teorias):** Identificaremos artigos acadêmicos (arXiv, e similares) em que a fragilidade do modelo desmorona a estabilidade propagada. Reproduziremos os cálculos base através da matemática bit-a-bit do 3BEP para provar o momento e instante exatos de quando suas teses desabam no infinito;
+1. **Reprodutibilidade Criptográfica:** Pela primeira vez, um pesquisador pode incluir no material suplementar do seu paper uma prova criptográfica (SHA-256) de que sua simulação é reproduzível bit a bit, verificável por qualquer pessoa com um único comando. Nenhum conhecimento especializado é necessário — se o hash coincidir, a física é idêntica. Isso não é um intervalo de confiança estatístico; é uma certeza matemática.
 2. **Prior Art Incontestável:** O código base de matemática do 'Santuário' será auditável publicamente em Rust rigorosamente testado, desmentindo que dependemos de truques para estabilizar as simulações, com selos de integridade criptográfica no roadmap.
-3. **Reprodutibilidade Criptográfica:** Pela primeira vez, um pesquisador pode incluir no material suplementar do seu paper uma prova criptográfica (SHA-256) de que sua simulação é reproduzível bit a bit, verificável por qualquer pessoa com um único comando. Nenhum conhecimento especializado é necessário — se o hash coincidir, a física é idêntica. Isso não é um intervalo de confiança estatístico; é uma certeza matemática.
+3. **Digital Twin of Science:** Utilizaremos artigos acadêmicos (arXiv, e similares) como casos de estudo para demonstrar como a aritmética de ponto flutuante IEEE 754 degrada silenciosamente a fidelidade das simulações ao longo do tempo. Ao reproduzir seus cálculos com a matemática bit-perfeita do 3BEP, buscamos revelar o momento exato em que a imprecisão do ponto flutuante — e não a metodologia do pesquisador — faz os resultados divergirem da realidade física. O objetivo é fortalecer a ciência, não julgá-la.
 
 **"A verdade física pertence a todos, mas a exploração comercial da nossa precisão exige o reconhecimento direto do Arquiteto."**
 

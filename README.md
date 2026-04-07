@@ -14,9 +14,9 @@ We at **3BEP Labs** established the "Sanctuary", a core built to house only stri
 
 This repository ends forgivable tolerances. It will serve as our legal-technological repository for the following mission:
 
-1. **Digital Twin of Science (Theory Graveyard):** We will identify academic papers (from arXiv, etc.) where model fragility collapses propagated stability. We will reproduce their baseline calculations using 3BEP's bit-perfect math to prove the exact moment and tick when their theses collapse into infinity.
+1. **Cryptographic Reproducibility:** For the first time, a researcher can include in their paper's supplementary material a cryptographic proof (SHA-256) that their simulation is reproducible bit-for-bit, verifiable by anyone with a single command. No specialized knowledge required — if the hash matches, the physics is identical. This is not a statistical confidence interval; it is a mathematical certainty.
 2. **Indisputable Prior Art:** The mathematical codebase of the 'Sanctuary' will be publicly auditable in rigorously tested pure Rust, debunking claims that we rely on tricks to stabilize simulations, with cryptographic integrity seals on the roadmap.
-3. **Cryptographic Reproducibility:** For the first time, a researcher can include in their paper's supplementary material a cryptographic proof (SHA-256) that their simulation is reproducible bit-for-bit, verifiable by anyone with a single command. No specialized knowledge required — if the hash matches, the physics is identical. This is not a statistical confidence interval; it is a mathematical certainty.
+3. **Digital Twin of Science:** We will use academic papers (from arXiv, etc.) as case studies to demonstrate how IEEE 754 floating-point arithmetic silently degrades simulation fidelity over time. By reproducing their calculations using 3BEP's bit-perfect math, we aim to reveal the exact moment when floating-point imprecision — not the researcher's methodology — causes results to diverge from physical reality. The goal is to strengthen science, not to judge it.
 
 **"Physical truth belongs to everyone, but the commercial exploitation of our precision requires the direct acknowledgment of the Architect."**
 
