@@ -1,10 +1,11 @@
 // 3BEP CLI — Zero-Friction Deterministic Physics Validator
 //
 // Usage:
-//   3bep validate experiment.json
-//   3bep validate experiment.json --compare-with-f64
-//   3bep validate experiment.json --export csv
-//   3bep validate experiment.json --export json
+//   3bep validate experiment.json                       Run I64F64 simulation
+//   3bep validate experiment.json --trajectory           Export full trajectory CSV
+//   3bep validate experiment.json --compare-with-f64     Compare I64F64 vs IEEE 754
+//   3bep validate experiment.json --export csv           Export final state as CSV
+//   3bep validate experiment.json --export json          Export final state as JSON
 //
 // The CLI reads a JSON configuration file containing initial conditions,
 // integrator choice, and simulation parameters. It then runs the simulation
@@ -33,7 +34,8 @@ fn main() {
 
     // Flags
     let compare_f64 = args.iter().any(|a| a == "--compare-with-f64");
-    let export_csv = args.iter().position(|a| a == "--export")
+    let trajectory = args.iter().any(|a| a == "--trajectory");
+    let export_format = args.iter().position(|a| a == "--export")
         .and_then(|i| args.get(i + 1))
         .map(|s| s.as_str());
 
@@ -66,13 +68,27 @@ fn main() {
             println!("  Integrator : {}", config.integrator);
             println!("  dt         : {}", config.dt);
             println!("  Steps      : {}", config.steps);
+            if trajectory {
+                let interval = config.export_interval.unwrap_or(1);
+                println!("  Trajectory : ON (every {} steps)", interval);
+            }
             println!();
 
             // Executar simulacao I64F64
-            let result = runner::run_simulation(&config);
+            let result = if trajectory {
+                let traj_path = filepath.replace(".json", "_trajectory.csv");
+                let r = runner::run_with_trajectory(&config, &traj_path);
+                let rows = config.steps / config.export_interval.unwrap_or(1) + 1;
+                println!("  [OK] Trajectory exported: {} ({} rows x {} bodies)",
+                    traj_path, rows, config.bodies.len());
+                r
+            } else {
+                runner::run_simulation(&config)
+            };
+
             report::print_report(&config, &result);
 
-            // Gerar hash SHA-256 do estado final
+            // Hash deterministico
             let hash = report::compute_state_hash(&result);
             println!("  State Hash : {}", hash);
             println!();
@@ -86,8 +102,8 @@ fn main() {
                 f64_compare::print_comparison(&result, &f64_result);
             }
 
-            // Exportacao (opcional)
-            if let Some(format) = export_csv {
+            // Exportacao de estado final (opcional)
+            if let Some(format) = export_format {
                 let output_path = filepath.replace(".json", &format!("_results.{}", format));
                 match format {
                     "csv" => report::export_csv(&config, &result, &output_path),
@@ -112,8 +128,17 @@ fn print_usage() {
     println!("3BEP CLI — Deterministic Physics Validator");
     println!();
     println!("Usage:");
-    println!("  3bep validate <experiment.json>                   Run I64F64 simulation");
-    println!("  3bep validate <experiment.json> --compare-with-f64  Compare I64F64 vs IEEE 754");
-    println!("  3bep validate <experiment.json> --export csv       Export results as CSV");
-    println!("  3bep validate <experiment.json> --export json      Export results as JSON");
+    println!("  3bep validate <experiment.json>                     Run I64F64 simulation");
+    println!("  3bep validate <experiment.json> --trajectory         Export full trajectory CSV");
+    println!("  3bep validate <experiment.json> --compare-with-f64   Compare I64F64 vs IEEE 754");
+    println!("  3bep validate <experiment.json> --export csv         Export final state as CSV");
+    println!("  3bep validate <experiment.json> --export json        Export final state as JSON");
+    println!();
+    println!("JSON Fields:");
+    println!("  experiment_name  string   Name for identification");
+    println!("  bodies           array    [{{mass, pos:[x,y,z], vel:[x,y,z]}}]");
+    println!("  integrator       string   \"rk4\" or \"leapfrog\"");
+    println!("  dt               string   Time step (string for I64F64 precision)");
+    println!("  steps            integer  Number of integration steps");
+    println!("  export_interval  integer  (optional) Save trajectory every N steps");
 }

@@ -70,16 +70,16 @@ A ferramenta `cli_3bep` permite que pesquisadores validem fisica **sem escrever 
 ```bash
 # Simulacao I64F64 basica com relatorio de energia/momento
 cd cli_3bep
-cargo run -- validate meu_experimento.json
+cargo run --release -- validate meu_experimento.json
+
+# Exportar trajetoria completa em CSV (posicao, velocidade, energia a cada N passos)
+cargo run --release -- validate meu_experimento.json --trajectory
 
 # Comparar I64F64 vs IEEE 754 (f64) — veja a divergencia exata
-cargo run -- validate meu_experimento.json --compare-with-f64
+cargo run --release -- validate meu_experimento.json --compare-with-f64
 
-# Exportar resultados como JSON (inclui hash deterministico)
-cargo run -- validate meu_experimento.json --export json
-
-# Exportar resultados como CSV
-cargo run -- validate meu_experimento.json --export csv
+# Exportar estado final como JSON (inclui hash deterministico)
+cargo run --release -- validate meu_experimento.json --export json
 ```
 
 ### 3. A saida inclui:
@@ -87,6 +87,7 @@ cargo run -- validate meu_experimento.json --export csv
 - **Conservacao de momento** (dPx, dPy com 14 casas decimais)
 - **Estado final** de todos os corpos (posicao + velocidade)
 - **Hash deterministico** (fingerprint FNV-1a para reprodutibilidade)
+- **Trajetoria CSV completa** (ao usar `--trajectory`): step, time, body, pos_xyz, vel_xyz, energia, momento — pronto para matplotlib/gnuplot
 - **Comparacao IEEE 754** (ao usar `--compare-with-f64`)
 
 ### Referencia dos Campos JSON:
@@ -97,6 +98,7 @@ cargo run -- validate meu_experimento.json --export csv
 | `integrator` | string | `"rk4"` ou `"leapfrog"` |
 | `dt` | string | Passo temporal (string para preservar precisao I64F64) |
 | `steps` | inteiro | Numero de passos de integracao |
+| `export_interval` | inteiro | (opcional) Salvar trajetoria a cada N passos. Padrao: 1 |
 
 Veja `cli_3bep/examples/kepler_orbit.json` para um exemplo funcional.
 

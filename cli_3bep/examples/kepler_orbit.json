@@ -6,5 +6,6 @@
   ],
   "integrator": "leapfrog",
   "dt": "0.01",
-  "steps": 6280
+  "steps": 6280,
+  "export_interval": 10
 }

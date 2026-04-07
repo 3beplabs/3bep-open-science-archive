@@ -34,3 +34,8 @@ Thumbs.db
 *.pdb
 *.lib
 *.exp
+
+# CLI generated outputs (simulation results)
+*_results.csv
+*_results.json
+*_trajectory.csv

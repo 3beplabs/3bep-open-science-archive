@@ -70,16 +70,16 @@ The `cli_3bep` tool lets researchers validate physics **without writing any Rust
 ```bash
 # Basic I64F64 simulation with energy/momentum report
 cd cli_3bep
-cargo run -- validate my_experiment.json
+cargo run --release -- validate my_experiment.json
+
+# Export full trajectory CSV (position, velocity, energy at every N steps)
+cargo run --release -- validate my_experiment.json --trajectory
 
 # Compare I64F64 vs IEEE 754 (f64) — see the exact divergence
-cargo run -- validate my_experiment.json --compare-with-f64
+cargo run --release -- validate my_experiment.json --compare-with-f64
 
-# Export results to JSON (includes deterministic state hash)
-cargo run -- validate my_experiment.json --export json
-
-# Export results to CSV
-cargo run -- validate my_experiment.json --export csv
+# Export final state to JSON (includes deterministic state hash)
+cargo run --release -- validate my_experiment.json --export json
 ```
 
 ### 3. Output includes:
@@ -87,6 +87,7 @@ cargo run -- validate my_experiment.json --export csv
 - **Momentum conservation** (dPx, dPy to 14 decimal places)
 - **Final state** of all bodies (position + velocity)
 - **Deterministic state hash** (FNV-1a fingerprint for reproducibility)
+- **Full trajectory CSV** (when using `--trajectory`): step, time, body, pos_xyz, vel_xyz, energy, momentum — ready for matplotlib/gnuplot
 - **IEEE 754 comparison** (when using `--compare-with-f64`)
 
 ### JSON Fields Reference:
@@ -97,6 +98,7 @@ cargo run -- validate my_experiment.json --export csv
 | `integrator` | string | `"rk4"` or `"leapfrog"` |
 | `dt` | string | Time step (string to preserve I64F64 precision) |
 | `steps` | integer | Number of integration steps |
+| `export_interval` | integer | (optional) Save trajectory every N steps. Default: 1 |
 
 See `cli_3bep/examples/kepler_orbit.json` for a working example.
 
