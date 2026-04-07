@@ -7,7 +7,7 @@
 - **Authors**: Trani, A. A., Di Cintio, P., & Ginolfi, M. (2026)
 - **Core Claim Under Audit**: The authors compute the largest Lyapunov exponent (λ_max) in gravitational N-body systems using a **4th-order symplectic integrator in double precision (f64)**, maintaining relative energy error below 10⁻⁹. They assert that λ_max "remains nearly constant" as the number of particles N increases.
 
-## 2. Why This Paper Is Auditable
+## 2. Audit Rationale
 
 The Lyapunov exponent is defined as the exponential divergence rate between two initially nearby trajectories in a chaotic system. Its computation is therefore **maximally sensitive** to the numerical precision of the underlying arithmetic:
 
