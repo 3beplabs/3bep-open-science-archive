@@ -2,13 +2,13 @@ name: 3BEP Autonomous Audit Bot
 
 on:
   schedule:
-    # Corre nas segundas e quintas-feiras às 08:00 UTC
+    # Runs on Mondays and Thursdays at 08:00 UTC
     - cron: '0 8 * * 1,4'
-  workflow_dispatch: # Permite rodar manualmente pelo painel do GitHub se quisermos
+  workflow_dispatch: # Allows manual trigger from GitHub Actions pane
 
 permissions:
-  issues: write     # Permissao essencial para o Bot conseguir abrir issues
-  contents: write   # Permissao para o bot re-commitar o history.json no repositorio
+  issues: write     # Essential permission for the Bot to open issues
+  contents: write   # Permission to bypass and commit history.json back to repo
 
 jobs:
   audit-arxiv:

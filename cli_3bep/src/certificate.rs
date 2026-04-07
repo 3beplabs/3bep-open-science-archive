@@ -1,25 +1,25 @@
-// Certificado SVG de Reprodutibilidade Deterministica
+// Deterministic Reproducibility SVG Certificate
 //
-// Gera um selo visual inline (SVG puro, zero crates externas) que
-// pesquisadores podem incluir em PDFs de papers como prova de
-// que a simulacao foi verificada pelo motor I64F64 do Santuario.
+// Generates an inline visual seal (pure SVG, zero external crates) that
+// researchers can include in PDF papers as proof that
+// the simulation was verified by the Sanctuary I64F64 engine.
 //
-// Hash: SHA-256 (FIPS 180-4, Rust puro)
-// Contem: versao do motor, hash dos inputs, hash dos outputs,
-// integrador, numero de passos, e timestamp UTC.
+// Hash: SHA-256 (FIPS 180-4, pure Rust)
+// Contains: engine version, input hash, output hash,
+// integrator, number of steps, and UTC timestamp.
 
 use crate::config::ExperimentConfig;
 use crate::report;
 use crate::runner::SimulationResult;
 use crate::sha256;
 
-/// Gera SHA-256 do conteudo JSON de input (fingerprint criptografico das condicoes iniciais)
+/// Generates SHA-256 of the JSON input content (cryptographic fingerprint of initial conditions)
 fn hash_input(json_str: &str) -> String {
     sha256::sha256_hex(json_str.as_bytes())
 }
 
-/// Gera timestamp UTC manual (sem crate externa, apenas SystemTime)
-/// Algoritmo civil_from_days: Howard Hinnant (2016), dominio publico
+/// Generates manual UTC timestamp (no external crate, just SystemTime)
+/// civil_from_days algorithm: Howard Hinnant (2016), public domain
 fn utc_timestamp() -> String {
     match std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH) {
         Ok(d) => {
@@ -47,7 +47,7 @@ fn utc_timestamp() -> String {
     }
 }
 
-/// Gera o certificado SVG completo e salva em disco
+/// Generates the complete SVG certificate and saves it to disk
 pub fn generate_certificate(
     config: &ExperimentConfig,
     result: &SimulationResult,
@@ -62,19 +62,19 @@ pub fn generate_certificate(
     let steps = result.steps_executed;
     let experiment = &config.experiment_name;
 
-    // Extrair titulo dos metadados .bep (se disponivel)
+    // Extract title from .bep metadata (if available)
     let title = match &config.metadata {
         Some(meta) if !meta.title.is_empty() => meta.title.clone(),
         _ => experiment.replace('_', " "),
     };
 
-    // Extrair autor dos metadados .bep (se disponivel)
+    // Extract author from .bep metadata (if available)
     let author = match &config.metadata {
         Some(meta) if !meta.author.is_empty() => meta.author.clone(),
         _ => "Independent Researcher".to_string(),
     };
 
-    // Hash completo no SVG (64 chars) — pesquisadores precisam copiar para validar
+    // Full SVG Hash (64 chars) — researchers must copy to validate
     let input_display = &input_hash;
     let output_display = &output_hash;
 
@@ -178,7 +178,7 @@ r##"<?xml version="1.0" encoding="UTF-8"?>
     }
 }
 
-/// Escapa caracteres especiais para XML/SVG
+/// Escapes special characters for XML/SVG
 fn escape_xml(s: &str) -> String {
     s.replace('&', "&amp;")
      .replace('<', "&lt;")

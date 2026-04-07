@@ -1,4 +1,4 @@
-// Motor de execucao: converte config JSON em simulacao I64F64
+// Execution engine: converts JSON config into I64F64 simulation
 
 use crate::config::ExperimentConfig;
 use core_engine::physics::vector3::Vector3;
@@ -8,7 +8,7 @@ use core_engine::physics::leapfrog::leapfrog_step;
 use core_engine::physics::nbody::{NBodySystem, nbody_rk4_step, nbody_leapfrog_step};
 use std::io::Write;
 
-/// Resultado da simulacao
+/// Simulation result
 pub struct SimulationResult {
     pub initial_energy: Scalar,
     pub final_energy: Scalar,
@@ -64,18 +64,18 @@ pub fn run_simulation(config: &ExperimentConfig) -> SimulationResult {
     }
 }
 
-/// Executa a simulacao e grava trajetoria completa em CSV via streaming
+/// Executes simulation and outputs full trajectory to CSV via streaming
 pub fn run_with_trajectory(config: &ExperimentConfig, trajectory_path: &str) -> SimulationResult {
     let n = config.bodies.len();
     let dt = Scalar::lit(&config.dt);
     let use_leapfrog = config.integrator.to_lowercase() == "leapfrog";
     let interval = config.export_interval.unwrap_or(1);
 
-    // Abrir arquivo CSV para streaming (nao acumula em memoria)
+    // Open CSV file for streaming (avoids memory buildup)
     let file = std::fs::File::create(trajectory_path).expect("Falha ao criar arquivo de trajetoria");
     let mut writer = std::io::BufWriter::new(file);
 
-    // Header
+    // CSV Header
     writeln!(writer, "step,time,body,pos_x,pos_y,pos_z,vel_x,vel_y,vel_z,energy,momentum_x,momentum_y").unwrap();
 
     if n <= 3 {
@@ -109,7 +109,7 @@ fn run_3body_trajectory(config: &ExperimentConfig, dt: Scalar, use_leapfrog: boo
     let dt_f64: f64 = config.dt.parse().unwrap_or(0.01);
     let n_bodies = config.bodies.len();
 
-    // Gravar estado inicial (step 0)
+    // Write initial state (step 0)
     write_trajectory_row(writer, 0, 0.0, &system.bodies, n_bodies, e0, p0x, p0y);
 
     let report_interval = if config.steps > 10000 { config.steps / 10 } else { config.steps };

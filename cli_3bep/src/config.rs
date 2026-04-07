@@ -1,10 +1,10 @@
-// Configuracao do experimento (JSON -> struct)
-// Suporta tanto .json quanto .bep (JSON com metadados academicos)
+// Experiment configuration (JSON -> struct)
+// Supports both .json and .bep (JSON with academic metadata)
 
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug, Default)]
-#[allow(dead_code)] // Campos deserializados pelo serde para documentacao .bep
+#[allow(dead_code)] // Fields deserialized by serde for .bep documentation
 pub struct ScriptMetadata {
     #[serde(default)]
     pub title: String,
@@ -31,16 +31,16 @@ pub struct BodyConfig {
 
 #[derive(Deserialize, Debug)]
 pub struct ExperimentConfig {
-    /// Metadados academicos (opcional, usado em scripts .bep)
+    /// Academic metadata (optional, used in .bep scripts)
     #[serde(default)]
     pub metadata: Option<ScriptMetadata>,
     pub experiment_name: String,
     pub bodies: Vec<BodyConfig>,
-    pub integrator: String,         // "rk4" ou "leapfrog"
-    pub dt: String,                 // String para converter em I64F64
+    pub integrator: String,         // "rk4" or "leapfrog"
+    pub dt: String,                 // String to convert into I64F64
     pub steps: u64,
-    /// Intervalo de exportacao da trajetoria (ex: 10 = salva a cada 10 passos).
-    /// Se ausente, usa 1 (todo passo). Ignorado sem --trajectory.
+    /// Trajectory export interval (e.g. 10 = save every 10 steps).
+    /// If absent, defaults to 1 (every step). Ignored without --trajectory.
     pub export_interval: Option<u64>,
 }
 

@@ -1,4 +1,4 @@
-// Relatorio e exportacao de resultados
+// Reporting and JSON/CSV final state export
 
 use crate::config::ExperimentConfig;
 use crate::runner::SimulationResult;
@@ -32,16 +32,16 @@ pub fn print_report(config: &ExperimentConfig, result: &SimulationResult) {
     println!();
 }
 
-/// Gera SHA-256 do estado final da simulacao (implementacao Rust puro, FIPS 180-4)
-/// Soberania total: zero crates criptograficas externas
+/// Generates SHA-256 of the final simulation state (Pure Rust, FIPS 180-4)
+/// Total sovereignty: zero external cryptography crates
 pub fn compute_state_hash(result: &SimulationResult) -> String {
-    // Concatenar todos os valores finais em bytes para criar o digest
+    // Concatenate all final values into bytes to create the digest
     let mut data = Vec::new();
 
-    // Energia
+    // Energy
     data.extend_from_slice(format!("{:?}", result.final_energy).as_bytes());
 
-    // Posicoes e velocidades
+    // Positions and velocities
     for p in &result.final_positions {
         data.extend_from_slice(format!("{:?}{:?}{:?}", p.0, p.1, p.2).as_bytes());
     }
@@ -49,7 +49,7 @@ pub fn compute_state_hash(result: &SimulationResult) -> String {
         data.extend_from_slice(format!("{:?}{:?}{:?}", v.0, v.1, v.2).as_bytes());
     }
 
-    // SHA-256 (FIPS 180-4, Rust puro)
+    // SHA-256 (FIPS 180-4, pure Rust)
     sha256::sha256_hex(&data)
 }
 

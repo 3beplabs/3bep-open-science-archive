@@ -5,9 +5,9 @@ import json
 import os
 import sys
 
-# Configuracoes de Busca
+# Search Configuration
 CATEGORIES = ["astro-ph.EP", "astro-ph.GA", "nlin.CD", "physics.comp-ph"]
-# Buscamos papers que mencionam simulacoes de n-corpos E problemas de integracao/estabilidade
+# Searching for papers mentioning n-body simulations AND integration/stability issues
 DOMAIN_KEYWORDS = ["n-body", "three-body", "gravitational", "orbital dynamics", "simulation"]
 FRAGILITY_KEYWORDS = ["energy drift", "numerical instability", "integration error", "symplectic", "floating point", "round-off", "lyapunov exponent", "chaotic divergence", "numerical artifact"]
 
@@ -28,13 +28,13 @@ def fetch_arxiv_papers(max_results=50):
     query = f"search_query={cat_query}&sortBy=submittedDate&sortOrder=descending&max_results={max_results}"
     url = f"https://export.arxiv.org/api/query?{query}"
     
-    print(f"[*] Consultando API do arXiv: {url}")
+    print(f"[*] Querying arXiv API: {url}")
     try:
         response = urllib.request.urlopen(url)
         xml_data = response.read()
         return ET.fromstring(xml_data)
     except Exception as e:
-        print(f"[!] Erro ao consultar arXiv: {e}")
+        print(f"[!] Error querying arXiv: {e}")
         sys.exit(1)
 
 import tarfile
@@ -47,15 +47,15 @@ def check_source_code(paper_id):
     eprint_url = f"https://export.arxiv.org/e-print/{paper_id}"
     found_code_files = []
     
-    print(f"    [>] Verificando anexos de código fonte para {paper_id}...")
-    time.sleep(3) # Polidez exigida pela API do arXiv (anti Error 429)
+    print(f"    [>] Checking source code attachments for {paper_id}...")
+    time.sleep(3) # Politeness required by arXiv API (anti Error 429)
     try:
-        # Request com Timeout para não prender o bot se o arXiv estiver lento
+        # Request with Timeout to avoid blocking the bot if arXiv is slow
         req = urllib.request.Request(eprint_url, headers={'User-Agent': '3bep-audit-bot/1.0'})
         response = urllib.request.urlopen(req, timeout=10)
         
-        # arXiv e-print pode retornar o PDF diretamente se não houver pacote fonte, 
-        # mas geralmente retorna um TAR GZ com o .tex e anexos.
+        # arXiv e-print might return the PDF directly if there is no source bundle, 
+        # but usually returns a TAR GZ with the .tex and attachments.
         if response.info().get_content_type() == 'application/x-eprint-tar':
             tar_bytes = response.read()
             with tarfile.open(fileobj=io.BytesIO(tar_bytes), mode="r:gz") as tar:
@@ -66,7 +66,7 @@ def check_source_code(paper_id):
                             found_code_files.append(member.name)
                             
     except Exception as e:
-        print(f"    [!] Aviso ao baixar e-print de {paper_id}: {e}")
+        print(f"    [!] Warning downloading e-print for {paper_id}: {e}")
         pass
         
     return found_code_files
@@ -76,7 +76,7 @@ def analyze_papers(root, history):
     ns = {'atom': 'http://www.w3.org/2005/Atom'}
     
     for entry in root.findall('atom:entry', ns):
-        # Trata versoes no arxiv (ex: 2404.12345v1 -> 2404.12345)
+        # Handles arxiv versions (e.g., 2404.12345v1 -> 2404.12345)
         raw_id = entry.find('atom:id', ns).text.split('/abs/')[-1]
         paper_id = raw_id.split('v')[0] if 'v' in raw_id else raw_id
         
@@ -152,15 +152,15 @@ def format_issue_markdown(candidate):
 
 def main():
     dry_run = "--dry-run" in sys.argv
-    print(f"=== 3BEP Audit Bot Iniciado {'(DRY RUN)' if dry_run else ''} ===")
+    print(f"=== 3BEP Audit Bot Started {'(DRY RUN)' if dry_run else ''} ===")
     
     history = load_history()
-    print(f"[*] Lidos {len(history['processed_ids'])} papers do historico.")
+    print(f"[*] Read {len(history['processed_ids'])} papers from history.")
     
-    root = fetch_arxiv_papers(max_results=1000) # Traz os 1000 mais recentes pra varrer
+    root = fetch_arxiv_papers(max_results=1000) # Fetch up to 1000 latest
     candidates = analyze_papers(root, history)
     
-    print(f"[*] Encontrados {len(candidates)} candidatos para auditoria.\n")
+    print(f"[*] Found {len(candidates)} candidates for auditing.\n")
     
     for c in candidates:
         md_issue = format_issue_markdown(c)
@@ -189,20 +189,20 @@ def main():
                 try:
                     urllib.request.urlopen(req)
                     history["processed_ids"].append(c["id"])
-                    print(f"[+] Issue criada para: {c['id']}")
+                    print(f"[+] Issue created for: {c['id']}")
                 except Exception as e:
-                    print(f"[!] Erro ao criar Issue para {c['id']}: {e}")
+                    print(f"[!] Error creating Issue for {c['id']}: {e}")
             else:
-                # Caso nao haja token (teste local sem dry run mas sem setup)
+                # Local test fallback
                 history["processed_ids"].append(c["id"])
-                print(f"[!] Aviso: Sem GITHUB_TOKEN; paper {c['id']} marcado como historico mas Issue nao criada.")
+                print(f"[!] Warning: No GITHUB_TOKEN; paper {c['id']} marked in history but Issue was not created.")
             
     if not dry_run and len(candidates) > 0:
         save_history(history)
-        print("[*] Historico atualizado.")
+        print("[*] History updated.")
         
     if len(candidates) == 0:
-        print("[*] Nenhum paper novo detectado com os termos-gatilho.")
+        print("[*] No new papers detected using the trigger keywords.")
 
 if __name__ == "__main__":
     main()

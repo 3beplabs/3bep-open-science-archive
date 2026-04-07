@@ -33,7 +33,7 @@ fn main() {
     let command = &args[1];
     let filepath = &args[2];
 
-    // Flags
+    // CLI Flags
     let compare_f64 = args.iter().any(|a| a == "--compare-with-f64");
     let trajectory = args.iter().any(|a| a == "--trajectory");
     let gen_certificate = args.iter().any(|a| a == "--certificate");
@@ -43,7 +43,7 @@ fn main() {
 
     match command.as_str() {
         "validate" => {
-            // Leitura do arquivo JSON/BEP
+            // Read JSON/BEP file
             let json_str = match fs::read_to_string(filepath) {
                 Ok(s) => s,
                 Err(e) => {
@@ -52,7 +52,7 @@ fn main() {
                 }
             };
 
-            // Parse da config
+            // Parse configuration
             let config = match config::ExperimentConfig::from_json(&json_str) {
                 Ok(c) => c,
                 Err(e) => {
@@ -79,7 +79,7 @@ fn main() {
             }
             println!();
 
-            // Executar simulacao I64F64
+            // Execute I64F64 simulation
             let result = if trajectory {
                 let traj_path = filepath.replace(".json", "_trajectory.csv")
                                         .replace(".bep", "_trajectory.csv");
@@ -94,12 +94,12 @@ fn main() {
 
             report::print_report(&config, &result);
 
-            // Hash deterministico SHA-256
+            // Deterministic SHA-256 hash
             let hash = report::compute_state_hash(&result);
             println!("  State Hash (SHA-256): {}", hash);
             println!();
 
-            // Comparacao com f64 (opcional)
+            // Compare with f64 (optional)
             if compare_f64 {
                 println!("----------------------------------------------------------");
                 println!("  IEEE 754 (f64) COMPARISON MODE");
@@ -108,7 +108,7 @@ fn main() {
                 f64_compare::print_comparison(&result, &f64_result);
             }
 
-            // Exportacao de estado final (opcional)
+            // Export final state (optional)
             if let Some(format) = export_format {
                 let output_path = filepath.replace(".json", &format!("_results.{}", format))
                                           .replace(".bep", &format!("_results.{}", format));
@@ -119,7 +119,7 @@ fn main() {
                 }
             }
 
-            // Geracao de certificado SVG (opcional)
+            // Generate SVG certificate (optional)
             if gen_certificate {
                 let cert_path = filepath.replace(".json", "_certificate.svg")
                                         .replace(".bep", "_certificate.svg");

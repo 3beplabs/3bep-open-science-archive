@@ -15,6 +15,7 @@ struct F64Vec3 {
     z: f64,
 }
 
+#[allow(dead_code)]
 impl F64Vec3 {
     fn zero() -> Self { Self { x: 0.0, y: 0.0, z: 0.0 } }
     fn mag_sq(&self) -> f64 { self.x*self.x + self.y*self.y + self.z*self.z }
@@ -45,6 +46,7 @@ struct F64System {
     bodies: [F64Body; 3],
 }
 
+#[allow(dead_code)]
 impl F64System {
     fn total_energy(&self) -> f64 {
         let mut ke = 0.0;

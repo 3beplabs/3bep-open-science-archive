@@ -1,12 +1,12 @@
-// SHA-256 — Implementacao Rust puro (zero crates externas)
+// SHA-256 — Pure Rust Implementation (zero external crates)
 //
-// Soberania total: nenhuma dependencia criptografica externa.
-// Implementacao fiel ao FIPS 180-4 (NIST, 2015).
+// Total sovereignty: no external cryptographic dependencies.
+// Faithful implementation of FIPS 180-4 (NIST, 2015).
 //
-// Referencia: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+// Reference: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
 
-/// Constantes de round (primeiros 32 bits da parte fracionaria das
-/// raizes cubicas dos primeiros 64 primos)
+/// Round constants (first 32 bits of the fractional part of the
+/// cube roots of the first 64 primes)
 const K: [u32; 64] = [
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
     0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -26,8 +26,8 @@ const K: [u32; 64] = [
     0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
 ];
 
-/// Valores iniciais de hash (primeiros 32 bits da parte fracionaria
-/// das raizes quadradas dos primeiros 8 primos)
+/// Initial hash values (first 32 bits of the fractional part
+/// of the square roots of the first 8 primes)
 const H_INIT: [u32; 8] = [
     0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
     0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19,
@@ -63,11 +63,11 @@ fn gamma1(x: u32) -> u32 {
     x.rotate_right(17) ^ x.rotate_right(19) ^ (x >> 10)
 }
 
-/// Processa um bloco de 64 bytes (512 bits)
+/// Processes a 64-byte block (512 bits)
 fn process_block(state: &mut [u32; 8], block: &[u8; 64]) {
     let mut w = [0u32; 64];
 
-    // Preparar message schedule (W)
+    // Prepare message schedule (W)
     for i in 0..16 {
         w[i] = u32::from_be_bytes([
             block[4*i], block[4*i+1], block[4*i+2], block[4*i+3]
@@ -80,7 +80,7 @@ fn process_block(state: &mut [u32; 8], block: &[u8; 64]) {
             .wrapping_add(w[i-16]);
     }
 
-    // Variaveis de trabalho
+    // Working variables
     let mut a = state[0];
     let mut b = state[1];
     let mut c = state[2];
@@ -90,7 +90,7 @@ fn process_block(state: &mut [u32; 8], block: &[u8; 64]) {
     let mut g = state[6];
     let mut h = state[7];
 
-    // 64 rounds de compressao
+    // 64 compression rounds
     for i in 0..64 {
         let t1 = h.wrapping_add(sigma1(e))
                   .wrapping_add(ch(e, f, g))
@@ -108,7 +108,7 @@ fn process_block(state: &mut [u32; 8], block: &[u8; 64]) {
         a = t1.wrapping_add(t2);
     }
 
-    // Adicionar ao estado
+    // Add to state
     state[0] = state[0].wrapping_add(a);
     state[1] = state[1].wrapping_add(b);
     state[2] = state[2].wrapping_add(c);
@@ -119,13 +119,13 @@ fn process_block(state: &mut [u32; 8], block: &[u8; 64]) {
     state[7] = state[7].wrapping_add(h);
 }
 
-/// Calcula o hash SHA-256 de um slice de bytes.
-/// Retorna 32 bytes (256 bits) do digest.
+/// Computes the SHA-256 hash of a byte slice.
+/// Returns 32 bytes (256 bits) of the digest.
 pub fn sha256(data: &[u8]) -> [u8; 32] {
     let mut state = H_INIT;
     let bit_len = (data.len() as u64) * 8;
 
-    // Processar blocos completos de 64 bytes
+    // Process complete 64-byte blocks
     let full_blocks = data.len() / 64;
     for i in 0..full_blocks {
         let mut block = [0u8; 64];
@@ -133,23 +133,23 @@ pub fn sha256(data: &[u8]) -> [u8; 32] {
         process_block(&mut state, &block);
     }
 
-    // Padding: adicionar bit '1', zeros, e comprimento em 64 bits big-endian
+    // Padding: add '1' bit, zeros, and 64-bit big-endian length
     let remainder = data.len() % 64;
     let mut last_block = [0u8; 64];
     last_block[..remainder].copy_from_slice(&data[full_blocks*64..]);
     last_block[remainder] = 0x80;
 
     if remainder >= 56 {
-        // Nao cabe o comprimento neste bloco, precisa de mais um
+        // Length doesn't fit in this block, needs one more
         process_block(&mut state, &last_block);
         last_block = [0u8; 64];
     }
 
-    // Comprimento da mensagem em bits (big-endian, ultimos 8 bytes)
+    // Message length in bits (big-endian, last 8 bytes)
     last_block[56..64].copy_from_slice(&bit_len.to_be_bytes());
     process_block(&mut state, &last_block);
 
-    // Converter estado para bytes
+    // Convert state to bytes
     let mut digest = [0u8; 32];
     for i in 0..8 {
         digest[4*i..4*i+4].copy_from_slice(&state[i].to_be_bytes());
@@ -157,7 +157,7 @@ pub fn sha256(data: &[u8]) -> [u8; 32] {
     digest
 }
 
-/// Calcula SHA-256 e retorna como string hexadecimal (64 caracteres)
+/// Computes SHA-256 and returns as a hexadecimal string (64 characters)
 pub fn sha256_hex(data: &[u8]) -> String {
     let digest = sha256(data);
     let mut hex = String::with_capacity(64);
