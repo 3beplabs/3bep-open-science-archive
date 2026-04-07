@@ -1,0 +1,38 @@
+name: 3BEP Autonomous Audit Bot
+
+on:
+  schedule:
+    # Corre nas segundas e quintas-feiras às 08:00 UTC
+    - cron: '0 8 * * 1,4'
+  workflow_dispatch: # Permite rodar manualmente pelo painel do GitHub se quisermos
+
+permissions:
+  issues: write     # Permissao essencial para o Bot conseguir abrir issues
+  contents: write   # Permissao para o bot re-commitar o history.json no repositorio
+
+jobs:
+  audit-arxiv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Execute ArXiv Scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/audit_bot/arxiv_scanner.py
+          
+      - name: Persist Bot Memory (history.json)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add scripts/audit_bot/history.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(bot): update arXiv processed history [skip ci]" && git push)
