@@ -16,6 +16,7 @@ Este repositório encerra as tolerâncias perdoáveis. Ele será o repositório 
 
 1. **Digital Twin of Science (Cemitério de Teorias):** Identificaremos artigos acadêmicos (arXiv, e similares) em que a fragilidade do modelo desmorona a estabilidade propagada. Reproduziremos os cálculos base através da matemática bit-a-bit do 3BEP para provar o momento e instante exatos de quando suas teses desabam no infinito;
 2. **Prior Art Incontestável:** O código base de matemática do 'Santuário' será auditável publicamente em Rust rigorosamente testado, desmentindo que dependemos de truques para estabilizar as simulações, com selos de integridade criptográfica no roadmap.
+3. **Reprodutibilidade Criptográfica:** Pela primeira vez, um pesquisador pode incluir no material suplementar do seu paper uma prova criptográfica (SHA-256) de que sua simulação é reproduzível bit a bit, verificável por qualquer pessoa com um único comando. Nenhum conhecimento especializado é necessário — se o hash coincidir, a física é idêntica. Isso não é um intervalo de confiança estatístico; é uma certeza matemática.
 
 **"A verdade física pertence a todos, mas a exploração comercial da nossa precisão exige o reconhecimento direto do Arquiteto."**
 

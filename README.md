@@ -16,6 +16,7 @@ This repository ends forgivable tolerances. It will serve as our legal-technolog
 
 1. **Digital Twin of Science (Theory Graveyard):** We will identify academic papers (from arXiv, etc.) where model fragility collapses propagated stability. We will reproduce their baseline calculations using 3BEP's bit-perfect math to prove the exact moment and tick when their theses collapse into infinity.
 2. **Indisputable Prior Art:** The mathematical codebase of the 'Sanctuary' will be publicly auditable in rigorously tested pure Rust, debunking claims that we rely on tricks to stabilize simulations, with cryptographic integrity seals on the roadmap.
+3. **Cryptographic Reproducibility:** For the first time, a researcher can include in their paper's supplementary material a cryptographic proof (SHA-256) that their simulation is reproducible bit-for-bit, verifiable by anyone with a single command. No specialized knowledge required — if the hash matches, the physics is identical. This is not a statistical confidence interval; it is a mathematical certainty.
 
 **"Physical truth belongs to everyone, but the commercial exploitation of our precision requires the direct acknowledgment of the Architect."**
 
