@@ -185,5 +185,7 @@ This project exists to serve science, not to gatekeep it. The Sanctuary engine b
 
 > *"The goal is not to prove that we are right. The goal is to make it impossible for anyone — including ourselves — to be wrong without knowing it."*
 
+**About Us.** 3BEP Labs is currently a one-person project — an independent developer with a conviction and the right tools. All code, documentation, and infrastructure were developed with AI assistance as a force multiplier. We believe that the origin of an idea matters less than its verifiability: every line of code is tested, every claim is reproducible, every hash is auditable. That said, one person does not build a revolution alone. If you share the vision that scientific reproducibility deserves better infrastructure, join us.
+
 ---
 **3BEP Labs** | The Infrastructure of Physical Truth.

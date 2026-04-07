@@ -185,5 +185,7 @@ Este projeto existe para servir à ciência, não para controlá-la. O motor San
 
 > *"O objetivo não é provar que estamos certos. O objetivo é tornar impossível que qualquer um — incluindo nós mesmos — esteja errado sem saber."*
 
+**Sobre Nós.** O 3BEP Labs é, no momento, um projeto de uma única pessoa — um desenvolvedor independente com uma convicção e as ferramentas certas. Todo o código, documentação e infraestrutura foram desenvolvidos com assistência de IA como multiplicador de capacidade. Acreditamos que a origem de uma ideia importa menos do que a sua verificabilidade: cada linha de código é testada, cada alegação é reproduzível, cada hash é auditável. Dito isso, uma pessoa não constrói uma revolução sozinha. Se você compartilha a visão de que a reprodutibilidade científica merece uma infraestrutura melhor, junte-se a nós.
+
 ---
 **3BEP Labs** | A Infraestrutura da Verdade Física.
