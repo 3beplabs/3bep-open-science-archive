@@ -66,15 +66,7 @@ fn total_energy_nbody(system: &NBodySystem) -> Scalar {
     ke + pe
 }
 
-fn total_momentum_vec(bodies: &[(Scalar, Scalar, Scalar, Scalar, Scalar, Scalar, Scalar)]) -> (Scalar, Scalar) {
-    let mut px = Scalar::ZERO;
-    let mut py = Scalar::ZERO;
-    for &(m, _, _, _, vx, vy, _) in bodies {
-        px += m * vx;
-        py += m * vy;
-    }
-    (px, py)
-}
+
 
 pub fn run_simulation(config: &ExperimentConfig) -> SimulationResult {
     let n = config.bodies.len();

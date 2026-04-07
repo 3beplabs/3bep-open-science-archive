@@ -5,6 +5,7 @@
 use crate::config::ExperimentConfig;
 use crate::runner::SimulationResult;
 
+#[allow(dead_code)]
 pub struct F64Result {
     pub final_energy: f64,
     pub energy_drift: f64,
