@@ -46,6 +46,60 @@ cargo run --example extreme_stress_test --release
 
 All tests validate bit-perfect determinism, energy conservation, singularity immunity, Kepler analytical correctness, symplectic integration, IEEE 754 divergence proof, and N-body scalability. See [TESTS.md](TESTS.md) for the detailed execution registry.
 
+## CLI Validator (Zero-Friction Auditing)
+
+The `cli_3bep` tool lets researchers validate physics **without writing any Rust code**. Define your experiment in a JSON file and run it:
+
+### 1. Create your experiment file (`my_experiment.json`):
+
+```json
+{
+  "experiment_name": "Kepler_Circular_Orbit",
+  "bodies": [
+    { "mass": 1000.0, "pos": [0, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 1.0, "pos": [10, 0, 0], "vel": [0, 10, 0] }
+  ],
+  "integrator": "leapfrog",
+  "dt": "0.01",
+  "steps": 6280
+}
+```
+
+### 2. Run the validation:
+
+```bash
+# Basic I64F64 simulation with energy/momentum report
+cd cli_3bep
+cargo run -- validate my_experiment.json
+
+# Compare I64F64 vs IEEE 754 (f64) — see the exact divergence
+cargo run -- validate my_experiment.json --compare-with-f64
+
+# Export results to JSON (includes deterministic state hash)
+cargo run -- validate my_experiment.json --export json
+
+# Export results to CSV
+cargo run -- validate my_experiment.json --export csv
+```
+
+### 3. Output includes:
+- **Energy conservation** (initial vs final, drift)
+- **Momentum conservation** (dPx, dPy to 14 decimal places)
+- **Final state** of all bodies (position + velocity)
+- **Deterministic state hash** (FNV-1a fingerprint for reproducibility)
+- **IEEE 754 comparison** (when using `--compare-with-f64`)
+
+### JSON Fields Reference:
+| Field | Type | Description |
+|---|---|---|
+| `experiment_name` | string | Name for identification |
+| `bodies` | array | List of bodies with mass, pos[x,y,z], vel[x,y,z] |
+| `integrator` | string | `"rk4"` or `"leapfrog"` |
+| `dt` | string | Time step (string to preserve I64F64 precision) |
+| `steps` | integer | Number of integration steps |
+
+See `cli_3bep/examples/kepler_orbit.json` for a working example.
+
 ## Engine Architecture
 
 The Sanctuary provides **two integrators** for different scientific use cases:
@@ -67,7 +121,7 @@ Both integrators are available for the fixed 3-body system and for the generic N
   - `nbody.rs` — Generic N-body system with both RK4 and Leapfrog
 * `core_engine/tests/` — Zero Tolerance test suite (13 modules, 30 tests). See [TESTS.md](TESTS.md).
 * `core_engine/examples/` — Runnable demonstrations for independent verification.
-* `cli_3bep/` — I64F64 integrators and tools *(coming soon)*.
+* `cli_3bep/` — Zero-friction JSON validator. See [CLI Validator](#cli-validator-zero-friction-auditing) above.
 * `preprint_archaeology/` — Evidence, mapped divergences, and cryptographic integrity seals *(coming soon)*.
 
 ## Key Scientific Claims (Proven by Tests)

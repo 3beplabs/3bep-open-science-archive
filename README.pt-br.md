@@ -44,7 +44,61 @@ cargo run --example example_1_stable_orbit --release
 cargo run --example extreme_stress_test --release
 ```
 
-Todos os testes validam determinismo bit-a-bit, conservação de energia, imunidade a singularidades, precisão analítica Kepleriana, integração simplética, prova de divergência IEEE 754, escalabilidade N-body, conservação de momento, e reversibilidade temporal. Veja [TESTS.md](TESTS.md) para o registro detalhado de execução.
+Todos os testes validam determinismo bit-a-bit, conservacao de energia, imunidade a singularidades, precisao analitica Kepleriana, integracao simpletica, prova de divergencia IEEE 754, escalabilidade N-body, conservacao de momento, e reversibilidade temporal. Veja [TESTS.md](TESTS.md) para o registro detalhado de execucao.
+
+## Validador CLI (Auditoria sem Friccao)
+
+A ferramenta `cli_3bep` permite que pesquisadores validem fisica **sem escrever nenhuma linha de Rust**. Defina seu experimento em JSON e execute:
+
+### 1. Crie seu arquivo de experimento (`meu_experimento.json`):
+
+```json
+{
+  "experiment_name": "Orbita_Kepler_Circular",
+  "bodies": [
+    { "mass": 1000.0, "pos": [0, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 1.0, "pos": [10, 0, 0], "vel": [0, 10, 0] }
+  ],
+  "integrator": "leapfrog",
+  "dt": "0.01",
+  "steps": 6280
+}
+```
+
+### 2. Execute a validacao:
+
+```bash
+# Simulacao I64F64 basica com relatorio de energia/momento
+cd cli_3bep
+cargo run -- validate meu_experimento.json
+
+# Comparar I64F64 vs IEEE 754 (f64) — veja a divergencia exata
+cargo run -- validate meu_experimento.json --compare-with-f64
+
+# Exportar resultados como JSON (inclui hash deterministico)
+cargo run -- validate meu_experimento.json --export json
+
+# Exportar resultados como CSV
+cargo run -- validate meu_experimento.json --export csv
+```
+
+### 3. A saida inclui:
+- **Conservacao de energia** (inicial vs final, drift)
+- **Conservacao de momento** (dPx, dPy com 14 casas decimais)
+- **Estado final** de todos os corpos (posicao + velocidade)
+- **Hash deterministico** (fingerprint FNV-1a para reprodutibilidade)
+- **Comparacao IEEE 754** (ao usar `--compare-with-f64`)
+
+### Referencia dos Campos JSON:
+| Campo | Tipo | Descricao |
+|---|---|---|
+| `experiment_name` | string | Nome para identificacao |
+| `bodies` | array | Lista de corpos com mass, pos[x,y,z], vel[x,y,z] |
+| `integrator` | string | `"rk4"` ou `"leapfrog"` |
+| `dt` | string | Passo temporal (string para preservar precisao I64F64) |
+| `steps` | inteiro | Numero de passos de integracao |
+
+Veja `cli_3bep/examples/kepler_orbit.json` para um exemplo funcional.
 
 ## Arquitetura do Motor
 
@@ -65,9 +119,9 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
   - `rk4.rs` — Integrador Runge-Kutta clássico de 4ª ordem (3 corpos)
   - `leapfrog.rs` — Integrador simplético Velocity Verlet (3 corpos)
   - `nbody.rs` — Sistema genérico de N corpos com RK4 e Leapfrog
-* `core_engine/tests/` — Suíte de Tolerância Zero (13 módulos, 30 testes). Veja [TESTS.md](TESTS.md).
-* `core_engine/examples/` — Demonstrações executáveis para verificação independente.
-* `cli_3bep/` — Ferramentas e integradores I64F64 *(em breve)*.
+* `core_engine/tests/` — Suite de Tolerancia Zero (13 modulos, 30 testes). Veja [TESTS.md](TESTS.md).
+* `core_engine/examples/` — Demonstracoes executaveis para verificacao independente.
+* `cli_3bep/` — Validador JSON sem friccao. Veja [Validador CLI](#validador-cli-auditoria-sem-friccao) acima.
 * `preprint_archaeology/` — Evidencias, divergencias mapeadas, e selos de integridade criptografica *(em breve)*.
 
 ## Alegações Científicas Chave (Provadas por Testes)
