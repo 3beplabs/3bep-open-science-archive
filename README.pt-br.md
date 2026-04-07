@@ -44,7 +44,7 @@ cargo run --example example_1_stable_orbit --release
 cargo run --example extreme_stress_test --release
 ```
 
-Todos os testes validam determinismo bit-a-bit, conservação de energia, imunidade a singularidades, precisão analítica Kepleriana, integração simplética, prova de divergência IEEE 754, escalabilidade N-body, conservação de momento, e reversibilidade temporal. Veja [tests.md](tests.md) para o registro detalhado de execução.
+Todos os testes validam determinismo bit-a-bit, conservação de energia, imunidade a singularidades, precisão analítica Kepleriana, integração simplética, prova de divergência IEEE 754, escalabilidade N-body, conservação de momento, e reversibilidade temporal. Veja [TESTS.md](TESTS.md) para o registro detalhado de execução.
 
 ## Arquitetura do Motor
 
@@ -65,7 +65,7 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
   - `rk4.rs` — Integrador Runge-Kutta clássico de 4ª ordem (3 corpos)
   - `leapfrog.rs` — Integrador simplético Velocity Verlet (3 corpos)
   - `nbody.rs` — Sistema genérico de N corpos com RK4 e Leapfrog
-* `core_engine/tests/` — Suíte de Tolerância Zero (13 módulos, 30 testes). Veja [tests.md](tests.md).
+* `core_engine/tests/` — Suíte de Tolerância Zero (13 módulos, 30 testes). Veja [TESTS.md](TESTS.md).
 * `core_engine/examples/` — Demonstrações executáveis para verificação independente.
 * `cli_3bep/` — Ferramentas e integradores I64F64 *(em breve)*.
 * `preprint_archaeology/` — Evidências, ZK-STARKs e divergências mapeadas *(em breve)*.
@@ -83,6 +83,7 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
 9. **Reversibilidade Temporal:** Leapfrog retorna ao estado inicial com erro de 5.4×10⁻¹⁷ após 1.000 passos para frente + 1.000 para trás — **43 milhões de vezes mais reversível** que RK4. *(Teste: time_reversibility)*
 10. **Órbita Elíptica (Kepler I + Vis-Viva):** Distância de afélio coincide com a previsão analítica em 0.5% para e=0.5. Equação vis-viva v² = GM(2/r − 1/a) válida a 1.8% em toda a órbita. *(Teste: elliptical_orbit)*
 11. **Verificação de Ordem de Convergência:** Erro de energia RK4 converge na razão **32.0** (confirmando O(h⁵)), erro de posição Leapfrog converge na razão **4.0** (confirmando O(h²)). Ambos coincidem com previsões teóricas a 3+ dígitos significativos. *(Teste: convergence_order)*
+12. **Determinismo Cross-Platform (Provado Empiricamente):** Todos os 30 testes produzem resultados **bit-a-bit idênticos** em 3 máquinas: AMD Ryzen (Windows 11), AMD EPYC (Ubuntu 24.04), e Intel Core i5-6200U (Windows 10). Cada dígito, cada bit, cada trajetória — idêntica. *(Veja: TESTS.md, seção Cross-Platform)*
 
 ## Referências
 

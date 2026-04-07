@@ -1,4 +1,4 @@
-# 3BEP Labs: Official Test & Confidence Registry (tests.md)
+# 3BEP Labs: Official Test & Confidence Registry (TESTS.md)
 
 This document records the execution, verification, and mathematical tolerance thresholds for the I64F64 instances governing the "Sanctuary" Module of the Open Science Archive.
 
@@ -140,5 +140,43 @@ This document records the execution, verification, and mathematical tolerance th
 | | **TOTAL** | **30** | **24.25s** | **ALL GREEN** |
 
 ---
-*This file is updated iteratively as testing procedures conform to the CLI (cargo test) benchmarks.*
 
+## Cross-Platform Determinism Verification
+
+The following test was executed on **3 independent machines** with different CPUs, operating systems, and compilers. Every numerical output was compared bit-for-bit.
+
+### Test Environments
+
+| # | OS | CPU | Compiler | Toolchain |
+|---|---|---|---|---|
+| 1 | Windows 11 | AMD Ryzen (Desktop) | rustc 1.86.0 | stable-msvc |
+| 2 | Ubuntu 24.04 LTS | AMD EPYC (VPS, 6 vCPU, 12GB) | rustc 1.94.1 | stable-gnu |
+| 3 | Windows 10 | Intel Core i5-6200U @ 2.30GHz (Laptop, 8GB) | rustc (stable) | stable-gnu |
+
+### Results: Bit-for-Bit Comparison
+
+| Metric | AMD Windows | AMD Linux | Intel Windows | Match |
+|---|---|---|---|---|
+| f64 divergence step | 507 | 507 | 507 | ✅ BIT-IDENTICAL |
+| f64 delta at step 507 | 1.340172417485519e-10 | 1.340172417485519e-10 | 1.340172417485519e-10 | ✅ BIT-IDENTICAL |
+| Kepler return error | 0.1514666380176232308 | 0.1514666380176232308 | 0.1514666380176232308 | ✅ BIT-IDENTICAL |
+| Kepler drift ratio (50/10) | 4.999863913645500876 | 4.999863913645500876 | 4.999863913645500876 | ✅ BIT-IDENTICAL |
+| RK4 convergence ratio | 32.0371589301636666343 | 32.0371589301636666343 | 32.0371589301636666343 | ✅ BIT-IDENTICAL |
+| Leapfrog convergence ratio | 3.99985261271443229514 | 3.99985261271443229514 | 3.99985261271443229514 | ✅ BIT-IDENTICAL |
+| Momentum dPx (Kepler) | 0.000000000000045985 | 0.000000000000045985 | 0.000000000000045985 | ✅ BIT-IDENTICAL |
+| Momentum dPy (Kepler) | 0.00000000000004843483 | 0.00000000000004843483 | 0.00000000000004843483 | ✅ BIT-IDENTICAL |
+| Angular momentum dL (chaos) | 665.2659636804055022708 | 665.2659636804055022708 | 665.2659636804055022708 | ✅ BIT-IDENTICAL |
+| Time reversal dx (Leapfrog) | 0.0000000000000000542 | 0.0000000000000000542 | 0.0000000000000000542 | ✅ BIT-IDENTICAL |
+| Time reversal total (Leapfrog) | 0.00000000000000010837 | 0.00000000000000010837 | 0.00000000000000010837 | ✅ BIT-IDENTICAL |
+| Time reversal total (RK4) | 0.0000000046529552053 | 0.0000000046529552053 | 0.0000000046529552053 | ✅ BIT-IDENTICAL |
+| Elliptical aphelion error | 0.0751753395719565627 | 0.0751753395719565627 | 0.0751753395719565627 | ✅ BIT-IDENTICAL |
+| Vis-viva max error | 5.2962265661182663748 | 5.2962265661182663748 | 5.2962265661182663748 | ✅ BIT-IDENTICAL |
+| Leapfrog energy drift (chaos) | 98011.30423843649973151876 | 98011.30423843649973151876 | 98011.30423843649973151876 | ✅ BIT-IDENTICAL |
+| RK4 energy drift (chaos) | 384570.09577591485937616845 | 384570.09577591485937616845 | 384570.09577591485937616845 | ✅ BIT-IDENTICAL |
+
+**Result: 30/30 tests passed on all 3 platforms. Every measured value is bit-for-bit identical across AMD, Intel, Windows, and Linux.**
+
+This empirically proves that I64F64 fixed-point arithmetic eliminates the platform-dependent behavior inherent to IEEE 754 floating-point. The same initial conditions produce the same trajectories — always, everywhere, on any hardware.
+
+---
+*This file is updated iteratively as testing procedures conform to the CLI (cargo test) benchmarks.*

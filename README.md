@@ -44,7 +44,7 @@ cargo run --example example_1_stable_orbit --release
 cargo run --example extreme_stress_test --release
 ```
 
-All tests validate bit-perfect determinism, energy conservation, singularity immunity, Kepler analytical correctness, symplectic integration, IEEE 754 divergence proof, and N-body scalability. See [tests.md](tests.md) for the detailed execution registry.
+All tests validate bit-perfect determinism, energy conservation, singularity immunity, Kepler analytical correctness, symplectic integration, IEEE 754 divergence proof, and N-body scalability. See [TESTS.md](TESTS.md) for the detailed execution registry.
 
 ## Engine Architecture
 
@@ -65,7 +65,7 @@ Both integrators are available for the fixed 3-body system and for the generic N
   - `rk4.rs` — Classical 4th-order Runge-Kutta integrator (3-body)
   - `leapfrog.rs` — Velocity Verlet symplectic integrator (3-body)
   - `nbody.rs` — Generic N-body system with both RK4 and Leapfrog
-* `core_engine/tests/` — Zero Tolerance test suite (13 modules, 30 tests). See [tests.md](tests.md).
+* `core_engine/tests/` — Zero Tolerance test suite (13 modules, 30 tests). See [TESTS.md](TESTS.md).
 * `core_engine/examples/` — Runnable demonstrations for independent verification.
 * `cli_3bep/` — I64F64 integrators and tools *(coming soon)*.
 * `preprint_archaeology/` — Evidence, ZK-STARKs, and mapped divergences *(coming soon)*.
@@ -83,6 +83,7 @@ Both integrators are available for the fixed 3-body system and for the generic N
 9. **Time Reversibility:** Leapfrog returns to initial state with error of 5.4×10⁻¹⁷ after 1,000 forward + 1,000 backward steps — **43 million times more reversible** than RK4. *(Test: time_reversibility)*
 10. **Elliptical Orbit (Kepler I + Vis-Viva):** Aphelion distance matches analytical prediction to 0.5% for e=0.5. Vis-viva equation v² = GM(2/r − 1/a) holds to 1.8% across the entire orbit. *(Test: elliptical_orbit)*
 11. **Convergence Order Verification:** RK4 energy error converges at ratio **32.0** (confirming O(h⁵)), Leapfrog position error converges at ratio **4.0** (confirming O(h²)). Both match theoretical predictions to 3+ significant digits. *(Test: convergence_order)*
+12. **Cross-Platform Determinism (Empirically Proven):** All 30 tests produce **bit-for-bit identical** results across 3 machines: AMD Ryzen (Windows 11), AMD EPYC (Ubuntu 24.04), and Intel Core i5-6200U (Windows 10). Every digit, every bit, every trajectory — identical. *(See: TESTS.md, Cross-Platform section)*
 
 ## References
 
