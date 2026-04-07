@@ -35,7 +35,7 @@ Integrator: RK4, dt = 0.01, 5000 steps.
 |-----|--------|-------------|---------|
 | **A** | I64F64 (128-bit fixed) | None | Ground-truth reference |
 | **B** | I64F64 (128-bit fixed) | Body 0 x += 1e-6 | Measure true chaotic divergence |
-| **C** | f64 (IEEE 754 double) | None | Measure floating-point contamination |
+| **C** | f64 (IEEE 754 double) | None | Measure floating-point arithmetic influence |
 
 ## 4. Results
 
@@ -66,7 +66,7 @@ Final state after 5,000 steps:
 | Energy Drift | 384,570 | 2,021,985 | 1,637,415 |
 | State SHA-256 | `7b8f6620...` | `9cf52d4e...` | Different |
 
-**Interpretation**: A physical perturbation of 1e-6 in position produces a final positional delta of ~130 length units after 5000 steps. This is the **genuine Lyapunov divergence** — the hallmark of deterministic chaos, measured under bit-perfect arithmetic free of floating-point contamination.
+**Interpretation**: A physical perturbation of 1e-6 in position produces a final positional delta of ~130 length units after 5000 steps. This represents genuine Lyapunov divergence measured under bit-perfect arithmetic, where the only source of trajectory separation is the physical perturbation itself.
 
 ### 4.3 The Critical Comparison
 
@@ -75,7 +75,7 @@ Final state after 5,000 steps:
 | **f64 arithmetic noise** (Run A vs C) | Step 507 | 0.000028 |
 | **Physical perturbation of 1e-6** (Run A vs B) | Step 1 | ~130 |
 
-The f64 arithmetic noise diverges at step 507 with Δ = 1.34e-10. In a chaotic system, this noise **grows exponentially** just like a physical perturbation would. Any Lyapunov exponent computed from f64 trajectories therefore contains an irreducible, platform-dependent noise floor that is **indistinguishable from the chaotic signal itself**.
+The f64 arithmetic difference emerges at step 507 with Δ = 1.34e-10. In a chaotic system, such differences **grow exponentially** just like a physical perturbation would. This raises the question of whether Lyapunov exponents computed from f64 trajectories may include a platform-dependent arithmetic component alongside the genuine chaotic signal.
 
 ## 5. Conservation Laws Under I64F64
 
@@ -86,7 +86,7 @@ Both runs maintained momentum conservation to machine epsilon:
 | A (Reference) | 3.02e-13 | 3.70e-13 |
 | B (Perturbed) | 1.14e-13 | 1.25e-12 |
 
-This proves that the I64F64 integrator maintains physical invariants even through 5000 steps of violent chaotic evolution — a property that f64 integrators cannot guarantee across platforms.
+This indicates that the I64F64 integrator maintains physical invariants through 5000 steps of chaotic evolution. For comparison, f64 integrators may produce slightly different conservation results depending on platform and compiler settings.
 
 ## 6. Cryptographic Verification (SHA-256 Seals)
 
@@ -101,15 +101,14 @@ Each simulation run is sealed with a SHA-256 hash of both the input configuratio
 
 ## 7. Conclusion
 
-The largest Lyapunov exponent λ_max reported in arXiv:2603.24675 is computed from trajectories integrated in IEEE 754 double precision. We have demonstrated that:
+The largest Lyapunov exponent λ_max reported in arXiv:2603.24675 is computed from trajectories integrated in IEEE 754 double precision. Our observations are:
 
-1. **f64 and I64F64 diverge at step 507** for the same chaotic initial conditions, proving that the trajectory is arithmetic-dependent.
-2. **The measured λ_max therefore includes a systematic, platform-dependent component** that conflates floating-point rounding noise with genuine chaotic dynamics.
-3. Under **deterministic I64F64 arithmetic**, the same simulation produces bit-identical results on any platform, enabling a clean separation between physical chaos and numerical artifacts.
+1. **f64 and I64F64 diverge at step 507** for the same chaotic initial conditions, indicating that the trajectory outcome depends on the arithmetic used.
+2. **The measured λ_max may therefore include a platform-dependent arithmetic component** alongside the genuine chaotic dynamics.
+3. Under **deterministic I64F64 arithmetic**, the same simulation produces bit-identical results on any platform, offering one possible approach to isolate physical chaos from numerical artifacts.
 
-This does not invalidate the paper's qualitative findings. However, it demonstrates that **quantitative claims about Lyapunov exponents in chaotic N-body systems are inherently limited by the precision of the underlying arithmetic**, and that fixed-point deterministic engines provide a more rigorous foundation for such measurements.
+This does not invalidate the paper's findings. The authors' qualitative conclusions about entropy-based diagnostics remain well-supported. Our contribution is to highlight that the underlying arithmetic is itself a variable worth controlling in chaotic systems, and to offer an open, reproducible dataset for further investigation.
 
-> The chaos is real; the numbers used to measure it are not.
-*— 3BEP Preprint Archaeology*
+> All data, scripts, and certificates in this audit are open for independent verification.
 
 **Data exported cleanly to:** `/preprint_archaeology/arXiv_2603_24675/`
