@@ -141,9 +141,25 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
 11. **Verificação de Ordem de Convergência:** Erro de energia RK4 converge na razão **32.0** (confirmando O(h⁵)), erro de posição Leapfrog converge na razão **4.0** (confirmando O(h²)). Ambos coincidem com previsões teóricas a 3+ dígitos significativos. *(Teste: convergence_order)*
 12. **Determinismo Cross-Platform (Provado Empiricamente):** Todos os 30 testes produzem resultados **bit-a-bit idênticos** em 3 máquinas: AMD Ryzen (Windows 11), AMD EPYC (Ubuntu 24.04), e Intel Core i5-6200U (Windows 10). Cada dígito, cada bit, cada trajetória — idêntica. *(Veja: TESTS.md, seção Cross-Platform)*
 
-## Referências
+## Referencias
 
-Todas as constantes físicas, algoritmos e alegações teóricas são respaldados por fontes acadêmicas primárias. Veja [REFERENCES.md](REFERENCES.md) para a lista completa de citações incluindo valores NIST CODATA, papers originais de Runge (1895), Verlet (1967), Noether (1918), e o padrão IEEE 754-2019.
+Todas as constantes fisicas, algoritmos e alegacoes teoricas sao respaldados por fontes academicas primarias. Veja [REFERENCES.md](REFERENCES.md) para a lista completa de citacoes incluindo valores NIST CODATA, papers originais de Runge (1895), Verlet (1967), Noether (1918), e o padrao IEEE 754-2019.
+
+## Contribuicao & Ciencia Aberta
+
+Este projeto existe para servir a ciencia, nao para controla-la. O motor Santuario pertence a comunidade sob a licenca AGPL-3.0, e convidamos ativamente a participacao:
+
+**Proponha um Teste.** Se voce acredita que existe um cenario fisico que desafia nosso motor deterministico, abra uma Issue com suas condicoes iniciais em formato JSON. Nos executaremos, publicaremos os resultados de forma transparente, e adicionaremos a suite de testes se revelar algo significativo. Nao temos medo de estar errados — temos medo de nao saber.
+
+**Envie Resultados Cross-Platform.** Rode `cargo test` na sua maquina e compartilhe a saida. Cada nova arquitetura que produz resultados bit-identicos fortalece a prova. Cada uma que nao produz revela algo que precisamos corrigir. Ambos os resultados sao valiosos.
+
+**Desafie Nossas Alegacoes.** Cada uma das 12 alegacoes cientificas listadas acima esta ligada a um teste especifico e reproduzivel. Se voce encontrar uma falha na nossa metodologia, um bug na nossa matematica, ou uma suposicao que nao justificamos — nos diga. O proposito inteiro de publicar o motor e convidar escrutinio.
+
+**Use a CLI para Seus Papers.** O validador `cli_3bep` foi construido para que fisicos possam verificar suas proprias simulacoes sem aprender Rust. Se voce publicar um paper usando dados de preprints do arXiv, pode rodar suas condicoes iniciais pelo nosso motor e incluir o hash deterministico nos seus materiais suplementares como certificado de reprodutibilidade.
+
+**O Que Isto Nao E.** Isto nao e um produto comercial disfarcado de open source. Isto nao e uma ferramenta projetada para envergonhar pesquisadores. O "Cemiterio de Teorias" existe porque a reprodutibilidade numerica e uma crise na fisica computacional — nao porque nos consideramos superiores a comunidade academica. Nos construimos o chao; queremos que todos pisem nele.
+
+> *"O objetivo nao e provar que estamos certos. O objetivo e tornar impossivel que qualquer um — incluindo nos mesmos — esteja errado sem saber."*
 
 ---
-**3BEP Labs** | A Infraestrutura da Verdade Física.
+**3BEP Labs** | A Infraestrutura da Verdade Fisica.

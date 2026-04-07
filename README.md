@@ -145,5 +145,21 @@ Both integrators are available for the fixed 3-body system and for the generic N
 
 All physical constants, algorithms, and theoretical claims are backed by primary academic sources. See [REFERENCES.md](REFERENCES.md) for the complete list of citations including NIST CODATA values, original papers by Runge (1895), Verlet (1967), Noether (1918), and the IEEE 754-2019 standard.
 
+## Contributing & Open Science
+
+This project exists to serve science, not to gatekeep it. The Sanctuary engine belongs to the community under the AGPL-3.0 license, and we actively invite participation:
+
+**Propose a Test.** If you believe there is a physical scenario that challenges our deterministic engine, open an Issue with your initial conditions in JSON format. We will run it, publish the results transparently, and add it to the test suite if it reveals something meaningful. We are not afraid of being wrong — we are afraid of not knowing.
+
+**Submit Cross-Platform Results.** Run `cargo test` on your machine and share the output. Every new architecture that produces bit-identical results strengthens the proof. Every architecture that doesn't reveals something we need to fix. Both outcomes are valuable.
+
+**Challenge Our Claims.** Each of the 12 scientific claims listed above links to a specific, reproducible test. If you find a flaw in our methodology, a bug in our math, or an assumption we haven't justified — tell us. The entire point of publishing the engine is to invite scrutiny.
+
+**Use the CLI for Your Papers.** The `cli_3bep` validator was built so that physicists can verify their own simulations without learning Rust. If you publish a paper using arXiv preprint data, you can run your initial conditions through our engine and include the deterministic hash in your supplementary materials as a reproducibility certificate.
+
+**What This Is Not.** This is not a commercial product disguised as open source. This is not a tool designed to shame researchers. The "Theory Graveyard" exists because numerical reproducibility is a crisis in computational physics — not because we consider ourselves superior to the academic community. We built the floor; we want everyone to stand on it.
+
+> *"The goal is not to prove that we are right. The goal is to make it impossible for anyone — including ourselves — to be wrong without knowing it."*
+
 ---
 **3BEP Labs** | The Infrastructure of Physical Truth.
