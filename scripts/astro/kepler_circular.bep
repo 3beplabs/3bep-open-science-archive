@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "title": "Kepler Circular Orbit — Leapfrog Symplectic Validation",
+    "category": "astro",
+    "description": "Two-body circular orbit over 10 orbital periods. Validates symplectic energy conservation and momentum conservation of the Leapfrog integrator. The planet orbits a central star at r=10 with circular velocity v=sqrt(GM/r)=sqrt(1000/10)~=10. One orbital period T=2*pi*r/v~=6.28, so 62800 steps at dt=0.01 covers ~10 full orbits.",
+    "author": "3BEP Labs",
+    "references": [
+      "Verlet, L. (1967). Computer experiments on classical fluids. I. Thermodynamical properties of Lennard-Jones molecules. Physical Review, 159(1), 98-103.",
+      "Hairer, E., Lubich, C., & Wanner, G. (2006). Geometric Numerical Integration. Springer."
+    ],
+    "tags": ["kepler", "circular-orbit", "leapfrog", "symplectic", "energy-conservation"],
+    "expected_claims": ["energy_conservation", "momentum_conservation", "determinism", "symplectic_bounded_drift"]
+  },
+  "experiment_name": "Kepler_Circular_Orbit_10T",
+  "bodies": [
+    { "mass": 1000.0, "pos": [0, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 1.0, "pos": [10, 0, 0], "vel": [0, 10, 0] }
+  ],
+  "integrator": "leapfrog",
+  "dt": "0.01",
+  "steps": 62800,
+  "export_interval": 100
+}

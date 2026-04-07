@@ -1,6 +1,26 @@
 // Configuracao do experimento (JSON -> struct)
+// Suporta tanto .json quanto .bep (JSON com metadados academicos)
 
 use serde::Deserialize;
+
+#[derive(Deserialize, Debug, Default)]
+#[allow(dead_code)] // Campos deserializados pelo serde para documentacao .bep
+pub struct ScriptMetadata {
+    #[serde(default)]
+    pub title: String,
+    #[serde(default)]
+    pub category: String,
+    #[serde(default)]
+    pub description: String,
+    #[serde(default)]
+    pub author: String,
+    #[serde(default)]
+    pub references: Vec<String>,
+    #[serde(default)]
+    pub tags: Vec<String>,
+    #[serde(default)]
+    pub expected_claims: Vec<String>,
+}
 
 #[derive(Deserialize, Debug)]
 pub struct BodyConfig {
@@ -11,6 +31,9 @@ pub struct BodyConfig {
 
 #[derive(Deserialize, Debug)]
 pub struct ExperimentConfig {
+    /// Metadados academicos (opcional, usado em scripts .bep)
+    #[serde(default)]
+    pub metadata: Option<ScriptMetadata>,
     pub experiment_name: String,
     pub bodies: Vec<BodyConfig>,
     pub integrator: String,         // "rk4" ou "leapfrog"

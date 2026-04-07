@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "title": "Butterfly Three-Body Orbit — Extreme Lyapunov Sensitivity",
+    "category": "chaos",
+    "description": "A butterfly-shaped periodic 3-body orbit discovered by Suvakov & Dmitrasinovic (2013). This configuration exhibits extreme sensitivity to initial conditions (high Lyapunov exponent). Even the smallest perturbation in initial conditions leads to completely different trajectories within a few orbital periods. Tests whether the deterministic engine maintains bit-perfect trajectories under extreme chaos.",
+    "author": "3BEP Labs",
+    "references": [
+      "Suvakov, M., & Dmitrasinovic, V. (2013). Three Classes of Newtonian Three-Body Planar Periodic Orbits. Physical Review Letters, 110(11), 114301.",
+      "Li, X., & Liao, S. (2017). More than six hundred new families of Newtonian periodic planar collisionless three-body orbits. Science China Physics, 60(12), 129511."
+    ],
+    "tags": ["3-body", "butterfly", "chaos", "lyapunov", "extreme-sensitivity"],
+    "expected_claims": ["energy_conservation", "momentum_conservation", "determinism", "chaotic_sensitivity"]
+  },
+  "experiment_name": "Butterfly_3Body_Suvakov",
+  "bodies": [
+    { "mass": 1.0, "pos": [-1, 0, 0], "vel": [0.30689, 0.12551, 0] },
+    { "mass": 1.0, "pos": [1, 0, 0], "vel": [0.30689, 0.12551, 0] },
+    { "mass": 1.0, "pos": [0, 0, 0], "vel": [-0.61378, -0.25102, 0] }
+  ],
+  "integrator": "rk4",
+  "dt": "0.001",
+  "steps": 80000,
+  "export_interval": 80
+}

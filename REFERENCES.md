@@ -130,4 +130,60 @@ The gravitational three-body problem has no general closed-form solution. This i
 
 ---
 
+## Script Library — Academic Sources
+
+The following references document the initial conditions and theoretical background for the pre-configured `.bep` scripts in the `scripts/` directory.
+
+### Astrophysical Scenarios (`scripts/astro/`)
+
+#### Kepler Circular Orbit (`kepler_circular.bep`)
+
+- Verlet, L. "Computer Experiments on Classical Fluids. I. Thermodynamical Properties of Lennard-Jones Molecules." *Physical Review* 159, 98–103 (1967). [DOI: 10.1103/PhysRev.159.98](https://doi.org/10.1103/PhysRev.159.98)
+- Hairer, E., Lubich, C. & Wanner, G. *Geometric Numerical Integration: Structure-Preserving Algorithms for Ordinary Differential Equations*, 2nd ed. Springer (2006).
+
+#### Kepler Elliptical Orbit (`kepler_elliptical.bep`)
+
+- Kepler, J. *Astronomia Nova* (1609). — First and Second Laws of planetary motion.
+- Bate, R.R., Mueller, D.D. & White, J.E. *Fundamentals of Astrodynamics*. Dover Publications (1971). — Vis-viva equation and orbital element derivations.
+
+#### Binary Star System (`binary_star.bep`)
+
+- Hut, P. & Bahcall, J.N. "Binary-Single Star Scattering. I. Numerical experiments for equal masses." *The Astrophysical Journal* 268, 319–341 (1983). [DOI: 10.1086/160956](https://doi.org/10.1086/160956)
+
+#### Sun-Earth-Moon System (`sun_earth_moon.bep`)
+
+- Murray, C.D. & Dermott, S.F. *Solar System Dynamics*. Cambridge University Press (1999). — Hierarchical multi-scale orbital stability.
+- Marchal, C. *The Three-Body Problem*. Elsevier Studies in Astronautics 4 (1990). — General three-body stability criteria.
+
+### Chaotic Dynamics (`scripts/chaos/`)
+
+#### Figure-8 Periodic Solution (`three_body_figure8.bep`)
+
+- **Chenciner, A. & Montgomery, R.** "A Remarkable Periodic Solution of the Three-Body Problem in the Case of Equal Masses." *Annals of Mathematics* 152(3), 881–901 (2000). [DOI: 10.2307/2661357](https://doi.org/10.2307/2661357)
+- Moore, C. "Braids in Classical Dynamics." *Physical Review Letters* 70(24), 3675–3679 (1993). [DOI: 10.1103/PhysRevLett.70.3675](https://doi.org/10.1103/PhysRevLett.70.3675)
+- Simó, C. "Dynamical Properties of the Figure Eight Solution of the Three-Body Problem." *Contemporary Mathematics* 292, 209–228 (2002).
+
+#### Pythagorean Three-Body Problem (`three_body_pythagorean.bep`)
+
+- **Szebehely, V. & Peters, C.F.** "Complete Solution of a General Problem of Three Bodies." *The Astronomical Journal* 72, 876–883 (1967). [DOI: 10.1086/110355](https://doi.org/10.1086/110355)
+
+#### Butterfly Orbit (`three_body_butterfly.bep`)
+
+- **Šuvakov, M. & Dmitrašinović, V.** "Three Classes of Newtonian Three-Body Planar Periodic Orbits." *Physical Review Letters* 110(11), 114301 (2013). [DOI: 10.1103/PhysRevLett.110.114301](https://doi.org/10.1103/PhysRevLett.110.114301)
+- Li, X. & Liao, S. "More Than Six Hundred New Families of Newtonian Periodic Planar Collisionless Three-Body Orbits." *Science China Physics, Mechanics & Astronomy* 60(12), 129511 (2017). [DOI: 10.1007/s11433-017-9078-5](https://doi.org/10.1007/s11433-017-9078-5)
+
+#### Burrau's Problem (`three_body_burrau.bep`)
+
+- **Burrau, C.** "Numerische Berechnung eines Spezialfalles des Dreikörperproblems." *Astronomische Nachrichten* 195, 113–118 (1913). [DOI: 10.1002/asna.19131950602](https://doi.org/10.1002/asna.19131950602)
+- Szebehely, V. "Burrau's Problem of Three Bodies." *Proceedings of the National Academy of Sciences* 71(12), 4718–4720 (1974).
+
+### Cryptographic Integrity
+
+#### SHA-256 (Certificate Hash)
+
+- **NIST.** "Secure Hash Standard (SHS)." *Federal Information Processing Standards Publication 180-4* (2015). [DOI: 10.6028/NIST.FIPS.180-4](https://doi.org/10.6028/NIST.FIPS.180-4)
+
+---
+
 *This document is maintained by 3BEP Labs for institutional transparency. All references are verifiable through the cited DOIs or standard academic libraries.*
+

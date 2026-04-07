@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "title": "Kepler Elliptical Orbit — Vis-Viva and Kepler I Validation",
+    "category": "astro",
+    "description": "Two-body elliptical orbit with eccentricity e=0.5. Validates Vis-Viva equation v^2=GM(2/r-1/a) and Kepler's First Law (aphelion/perihelion distances). Semi-major axis a=10, so perihelion r_p=a(1-e)=5 and aphelion r_a=a(1+e)=15. Velocity at perihelion: v_p=sqrt(GM*(1+e)/(a*(1-e)))=sqrt(1000*1.5/5)~=17.32. RK4 used for higher precision on position.",
+    "author": "3BEP Labs",
+    "references": [
+      "Kepler, J. (1609). Astronomia nova.",
+      "Bate, R.R., Mueller, D.D., & White, J.E. (1971). Fundamentals of Astrodynamics. Dover."
+    ],
+    "tags": ["kepler", "elliptical-orbit", "vis-viva", "rk4", "eccentricity"],
+    "expected_claims": ["energy_conservation", "vis_viva_validation", "kepler_first_law", "determinism"]
+  },
+  "experiment_name": "Kepler_Elliptical_e05_RK4",
+  "bodies": [
+    { "mass": 1000.0, "pos": [0, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 1.0, "pos": [5, 0, 0], "vel": [0, 17.32, 0] }
+  ],
+  "integrator": "rk4",
+  "dt": "0.001",
+  "steps": 50000,
+  "export_interval": 50
+}

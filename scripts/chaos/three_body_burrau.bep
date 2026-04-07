@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "title": "Burrau's Problem (1913) — Chaotic Gravitational Collapse",
+    "category": "chaos",
+    "description": "The original Burrau problem (1913): three bodies with masses 3, 4, 5 placed at the vertices of an isosceles right triangle with all bodies starting from rest. This leads to a violent chaotic interaction with close encounters and eventual ejection. One of the earliest numerically studied 3-body problems and a benchmark for integrator robustness under near-singular conditions.",
+    "author": "3BEP Labs",
+    "references": [
+      "Burrau, C. (1913). Numerische Berechnung eines Spezialfalles des Dreikorperproblems. Astronomische Nachrichten, 195, 113-118.",
+      "Szebehely, V. (1974). Burrau's Problem of Three Bodies. Proceedings of the National Academy of Sciences, 71(12), 4718-4720."
+    ],
+    "tags": ["3-body", "burrau", "chaos", "collapse", "close-encounter", "ejection"],
+    "expected_claims": ["energy_conservation", "momentum_conservation", "determinism", "singularity_immunity"]
+  },
+  "experiment_name": "Burrau_Problem_1913",
+  "bodies": [
+    { "mass": 3.0, "pos": [0, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 4.0, "pos": [4, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 5.0, "pos": [0, 3, 0], "vel": [0, 0, 0] }
+  ],
+  "integrator": "rk4",
+  "dt": "0.001",
+  "steps": 30000,
+  "export_interval": 30
+}

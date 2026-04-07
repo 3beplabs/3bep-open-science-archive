@@ -80,15 +80,19 @@ cargo run --release -- validate my_experiment.json --compare-with-f64
 
 # Export final state to JSON (includes deterministic state hash)
 cargo run --release -- validate my_experiment.json --export json
+
+# Generate SVG reproducibility certificate (SHA-256 sealed)
+cargo run --release -- validate my_experiment.json --certificate
 ```
 
 ### 3. Output includes:
 - **Energy conservation** (initial vs final, drift)
 - **Momentum conservation** (dPx, dPy to 14 decimal places)
 - **Final state** of all bodies (position + velocity)
-- **Deterministic state hash** (FNV-1a fingerprint for reproducibility)
+- **Deterministic state hash** (SHA-256, FIPS 180-4, pure Rust — zero external crates)
 - **Full trajectory CSV** (when using `--trajectory`): step, time, body, pos_xyz, vel_xyz, energy, momentum — ready for matplotlib/gnuplot
 - **IEEE 754 comparison** (when using `--compare-with-f64`)
+- **SVG Reproducibility Certificate** (when using `--certificate`): embeddable seal with input/output SHA-256 hashes
 
 ### JSON Fields Reference:
 | Field | Type | Description |
@@ -99,8 +103,25 @@ cargo run --release -- validate my_experiment.json --export json
 | `dt` | string | Time step (string to preserve I64F64 precision) |
 | `steps` | integer | Number of integration steps |
 | `export_interval` | integer | (optional) Save trajectory every N steps. Default: 1 |
+| `metadata` | object | (optional) Academic metadata for `.bep` scripts |
 
-See `cli_3bep/examples/kepler_orbit.json` for a working example.
+See `cli_3bep/examples/kepler_orbit.json` for a working example, or browse `scripts/` for pre-configured scenarios.
+
+## Script Library
+
+The `scripts/` directory contains pre-configured simulation scenarios ready to run:
+
+```bash
+# Astrophysical scenarios
+cargo run --release -- validate ../scripts/astro/kepler_circular.bep
+cargo run --release -- validate ../scripts/astro/binary_star.bep
+
+# Chaotic dynamics
+cargo run --release -- validate ../scripts/chaos/three_body_figure8.bep
+cargo run --release -- validate ../scripts/chaos/three_body_burrau.bep
+```
+
+`.bep` files are standard JSON with optional academic metadata (title, references, tags). See [scripts/README.md](scripts/README.md) for the full catalog.
 
 ## Engine Architecture
 
@@ -123,8 +144,10 @@ Both integrators are available for the fixed 3-body system and for the generic N
   - `nbody.rs` — Generic N-body system with both RK4 and Leapfrog
 * `core_engine/tests/` — Zero Tolerance test suite (13 modules, 30 tests). See [TESTS.md](TESTS.md).
 * `core_engine/examples/` — Runnable demonstrations for independent verification.
-* `cli_3bep/` — Zero-friction JSON validator. See [CLI Validator](#cli-validator-zero-friction-auditing) above.
+* `cli_3bep/` — Zero-friction JSON/BEP validator with SHA-256 certificates. See [CLI Validator](#cli-validator-zero-friction-auditing) above.
+* `scripts/` — Pre-configured simulation scenarios (astro + chaos). See [scripts/README.md](scripts/README.md).
 * `preprint_archaeology/` — Evidence, mapped divergences, and cryptographic integrity seals *(coming soon)*.
+* `VERIFY.md` — Cross-platform verification protocol with reference SHA-256 hashes.
 
 ## Key Scientific Claims (Proven by Tests)
 
@@ -151,7 +174,7 @@ This project exists to serve science, not to gatekeep it. The Sanctuary engine b
 
 **Propose a Test.** If you believe there is a physical scenario that challenges our deterministic engine, open an Issue with your initial conditions in JSON format. We will run it, publish the results transparently, and add it to the test suite if it reveals something meaningful. We are not afraid of being wrong — we are afraid of not knowing.
 
-**Submit Cross-Platform Results.** Run `cargo test` on your machine and share the output. Every new architecture that produces bit-identical results strengthens the proof. Every architecture that doesn't reveals something we need to fix. Both outcomes are valuable.
+**Submit Cross-Platform Results.** Run `cargo test` on your machine and share the output. See [VERIFY.md](VERIFY.md) for the full verification protocol, reference SHA-256 hashes, and the community verification table. Every new architecture that produces bit-identical results strengthens the proof. Every architecture that doesn't reveals something we need to fix. Both outcomes are valuable.
 
 **Challenge Our Claims.** Each of the 12 scientific claims listed above links to a specific, reproducible test. If you find a flaw in our methodology, a bug in our math, or an assumption we haven't justified — tell us. The entire point of publishing the engine is to invite scrutiny.
 

@@ -6,11 +6,10 @@
 //   3bep validate experiment.json --compare-with-f64     Compare I64F64 vs IEEE 754
 //   3bep validate experiment.json --export csv           Export final state as CSV
 //   3bep validate experiment.json --export json          Export final state as JSON
+//   3bep validate experiment.json --certificate          Generate SVG reproducibility seal
 //
-// The CLI reads a JSON configuration file containing initial conditions,
-// integrator choice, and simulation parameters. It then runs the simulation
-// using the I64F64 Sanctuary engine and reports energy conservation,
-// momentum conservation, and deterministic hash of the final state.
+// Supports both .json and .bep (JSON with academic metadata) files.
+// Hash algorithm: SHA-256 (FIPS 180-4, pure Rust implementation).
 
 use std::env;
 use std::fs;
@@ -20,6 +19,8 @@ mod config;
 mod runner;
 mod report;
 mod f64_compare;
+mod certificate;
+mod sha256;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -35,13 +36,14 @@ fn main() {
     // Flags
     let compare_f64 = args.iter().any(|a| a == "--compare-with-f64");
     let trajectory = args.iter().any(|a| a == "--trajectory");
+    let gen_certificate = args.iter().any(|a| a == "--certificate");
     let export_format = args.iter().position(|a| a == "--export")
         .and_then(|i| args.get(i + 1))
         .map(|s| s.as_str());
 
     match command.as_str() {
         "validate" => {
-            // Leitura do arquivo JSON
+            // Leitura do arquivo JSON/BEP
             let json_str = match fs::read_to_string(filepath) {
                 Ok(s) => s,
                 Err(e) => {
@@ -72,11 +74,15 @@ fn main() {
                 let interval = config.export_interval.unwrap_or(1);
                 println!("  Trajectory : ON (every {} steps)", interval);
             }
+            if gen_certificate {
+                println!("  Certificate: ON (SVG with SHA-256)");
+            }
             println!();
 
             // Executar simulacao I64F64
             let result = if trajectory {
-                let traj_path = filepath.replace(".json", "_trajectory.csv");
+                let traj_path = filepath.replace(".json", "_trajectory.csv")
+                                        .replace(".bep", "_trajectory.csv");
                 let r = runner::run_with_trajectory(&config, &traj_path);
                 let rows = config.steps / config.export_interval.unwrap_or(1) + 1;
                 println!("  [OK] Trajectory exported: {} ({} rows x {} bodies)",
@@ -88,9 +94,9 @@ fn main() {
 
             report::print_report(&config, &result);
 
-            // Hash deterministico
+            // Hash deterministico SHA-256
             let hash = report::compute_state_hash(&result);
-            println!("  State Hash : {}", hash);
+            println!("  State Hash (SHA-256): {}", hash);
             println!();
 
             // Comparacao com f64 (opcional)
@@ -104,7 +110,8 @@ fn main() {
 
             // Exportacao de estado final (opcional)
             if let Some(format) = export_format {
-                let output_path = filepath.replace(".json", &format!("_results.{}", format));
+                let output_path = filepath.replace(".json", &format!("_results.{}", format))
+                                          .replace(".bep", &format!("_results.{}", format));
                 match format {
                     "csv" => report::export_csv(&config, &result, &output_path),
                     "json" => report::export_json(&config, &result, &output_path),
@@ -112,8 +119,16 @@ fn main() {
                 }
             }
 
+            // Geracao de certificado SVG (opcional)
+            if gen_certificate {
+                let cert_path = filepath.replace(".json", "_certificate.svg")
+                                        .replace(".bep", "_certificate.svg");
+                certificate::generate_certificate(&config, &result, &json_str, &cert_path);
+            }
+
             println!("==========================================================");
             println!("  Validation complete. Determinism guaranteed by I64F64.");
+            println!("  Integrity sealed with SHA-256 (FIPS 180-4, pure Rust).");
             println!("==========================================================");
         }
         _ => {
@@ -133,6 +148,9 @@ fn print_usage() {
     println!("  3bep validate <experiment.json> --compare-with-f64   Compare I64F64 vs IEEE 754");
     println!("  3bep validate <experiment.json> --export csv         Export final state as CSV");
     println!("  3bep validate <experiment.json> --export json        Export final state as JSON");
+    println!("  3bep validate <experiment.json> --certificate        Generate SVG reproducibility seal");
+    println!();
+    println!("Supports both .json and .bep (JSON with academic metadata) files.");
     println!();
     println!("JSON Fields:");
     println!("  experiment_name  string   Name for identification");
@@ -141,4 +159,7 @@ fn print_usage() {
     println!("  dt               string   Time step (string for I64F64 precision)");
     println!("  steps            integer  Number of integration steps");
     println!("  export_interval  integer  (optional) Save trajectory every N steps");
+    println!("  metadata         object   (optional) Academic metadata for .bep scripts");
+    println!();
+    println!("Hash: SHA-256 (FIPS 180-4, pure Rust — zero external crates)");
 }

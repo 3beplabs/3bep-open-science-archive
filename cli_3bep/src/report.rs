@@ -2,6 +2,7 @@
 
 use crate::config::ExperimentConfig;
 use crate::runner::SimulationResult;
+use crate::sha256;
 use std::fs;
 
 pub fn print_report(config: &ExperimentConfig, result: &SimulationResult) {
@@ -31,32 +32,25 @@ pub fn print_report(config: &ExperimentConfig, result: &SimulationResult) {
     println!();
 }
 
-/// Gera um hash SHA-256 simples do estado final usando uma implementacao manual
-/// (sem dependencia externa, soberania total)
+/// Gera SHA-256 do estado final da simulacao (implementacao Rust puro, FIPS 180-4)
+/// Soberania total: zero crates criptograficas externas
 pub fn compute_state_hash(result: &SimulationResult) -> String {
-    // Concatenar todos os valores finais em bytes para criar um fingerprint
+    // Concatenar todos os valores finais em bytes para criar o digest
     let mut data = Vec::new();
 
     // Energia
-    data.extend_from_slice(&format!("{:?}", result.final_energy).as_bytes());
+    data.extend_from_slice(format!("{:?}", result.final_energy).as_bytes());
 
     // Posicoes e velocidades
     for p in &result.final_positions {
-        data.extend_from_slice(&format!("{:?}{:?}{:?}", p.0, p.1, p.2).as_bytes());
+        data.extend_from_slice(format!("{:?}{:?}{:?}", p.0, p.1, p.2).as_bytes());
     }
     for v in &result.final_velocities {
-        data.extend_from_slice(&format!("{:?}{:?}{:?}", v.0, v.1, v.2).as_bytes());
+        data.extend_from_slice(format!("{:?}{:?}{:?}", v.0, v.1, v.2).as_bytes());
     }
 
-    // Hash simples (FNV-1a 128-bit para fingerprint deterministico)
-    let mut h: u128 = 0xcbf29ce484222325;
-    let prime: u128 = 0x100000001b3;
-    for &byte in &data {
-        h ^= byte as u128;
-        h = h.wrapping_mul(prime);
-    }
-
-    format!("{:032x}", h)
+    // SHA-256 (FIPS 180-4, Rust puro)
+    sha256::sha256_hex(&data)
 }
 
 pub fn export_csv(config: &ExperimentConfig, result: &SimulationResult, path: &str) {
@@ -89,7 +83,7 @@ pub fn export_json(config: &ExperimentConfig, result: &SimulationResult, path: &
     out.push_str(&format!("  \"initial_energy\": \"{:?}\",\n", result.initial_energy));
     out.push_str(&format!("  \"final_energy\": \"{:?}\",\n", result.final_energy));
     out.push_str(&format!("  \"energy_drift\": \"{:?}\",\n", result.energy_drift));
-    out.push_str(&format!("  \"state_hash\": \"{}\",\n", hash));
+    out.push_str(&format!("  \"state_hash_sha256\": \"{}\",\n", hash));
     out.push_str("  \"bodies\": [\n");
 
     for (i, (pos, vel)) in result.final_positions.iter()

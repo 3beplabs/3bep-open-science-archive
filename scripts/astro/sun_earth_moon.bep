@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "title": "Sun-Earth-Moon Hierarchical 3-Body System",
+    "category": "astro",
+    "description": "Simplified Sun-Earth-Moon system testing hierarchical 3-body stability. Sun (mass=1000) at origin, Earth (mass=1) orbiting at r=10, Moon (mass=0.01) orbiting Earth at r=0.5. Tests whether the moon remains gravitationally bound to Earth over extended integration and whether energy conservation holds in a hierarchical multi-scale system.",
+    "author": "3BEP Labs",
+    "references": [
+      "Murray, C.D., & Dermott, S.F. (1999). Solar System Dynamics. Cambridge University Press.",
+      "Marchal, C. (1990). The Three-Body Problem. Elsevier."
+    ],
+    "tags": ["3-body", "hierarchical", "sun-earth-moon", "stability", "leapfrog"],
+    "expected_claims": ["energy_conservation", "momentum_conservation", "hierarchical_stability", "determinism"]
+  },
+  "experiment_name": "Sun_Earth_Moon_Hierarchical",
+  "bodies": [
+    { "mass": 1000.0, "pos": [0, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 1.0, "pos": [10, 0, 0], "vel": [0, 10.0, 0] },
+    { "mass": 0.01, "pos": [10.5, 0, 0], "vel": [0, 11.4, 0] }
+  ],
+  "integrator": "leapfrog",
+  "dt": "0.001",
+  "steps": 200000,
+  "export_interval": 200
+}

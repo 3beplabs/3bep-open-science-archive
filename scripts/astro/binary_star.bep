@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "title": "Equal-Mass Binary Star System — Symmetric Conservation",
+    "category": "astro",
+    "description": "Two stars of equal mass orbiting their common center of mass. Tests perfect symmetry conservation: the center of mass must remain stationary, and energy/momentum must be conserved to machine precision. Each star at distance 5 from center, circular velocity v=sqrt(GM/(4*d))=sqrt(100/(4*5))~=2.236 for Keplerian binary.",
+    "author": "3BEP Labs",
+    "references": [
+      "Hut, P., & Bahcall, J.N. (1983). Binary-single star scattering. The Astrophysical Journal, 268, 319-341."
+    ],
+    "tags": ["binary-star", "equal-mass", "symmetry", "center-of-mass", "leapfrog"],
+    "expected_claims": ["energy_conservation", "momentum_conservation", "center_of_mass_stationary", "determinism"]
+  },
+  "experiment_name": "Binary_Star_Equal_Mass",
+  "bodies": [
+    { "mass": 100.0, "pos": [5, 0, 0], "vel": [0, 2.236, 0] },
+    { "mass": 100.0, "pos": [-5, 0, 0], "vel": [0, -2.236, 0] }
+  ],
+  "integrator": "leapfrog",
+  "dt": "0.01",
+  "steps": 100000,
+  "export_interval": 100
+}

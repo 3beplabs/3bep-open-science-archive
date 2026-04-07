@@ -80,15 +80,19 @@ cargo run --release -- validate meu_experimento.json --compare-with-f64
 
 # Exportar estado final como JSON (inclui hash determinístico)
 cargo run --release -- validate meu_experimento.json --export json
+
+# Gerar certificado SVG de reprodutibilidade (lacrado com SHA-256)
+cargo run --release -- validate meu_experimento.json --certificate
 ```
 
 ### 3. A saída inclui:
 - **Conservação de energia** (inicial vs final, drift)
 - **Conservação de momento** (dPx, dPy com 14 casas decimais)
 - **Estado final** de todos os corpos (posição + velocidade)
-- **Hash determinístico** (fingerprint FNV-1a para reprodutibilidade)
+- **Hash determinístico** (SHA-256, FIPS 180-4, Rust puro — zero crates externas)
 - **Trajetória CSV completa** (ao usar `--trajectory`): step, time, body, pos_xyz, vel_xyz, energia, momento — pronto para matplotlib/gnuplot
 - **Comparação IEEE 754** (ao usar `--compare-with-f64`)
+- **Certificado SVG de Reprodutibilidade** (ao usar `--certificate`): selo embeddable com hashes SHA-256 de input/output
 
 ### Referência dos Campos JSON:
 | Campo | Tipo | Descrição |
@@ -99,8 +103,25 @@ cargo run --release -- validate meu_experimento.json --export json
 | `dt` | string | Passo temporal (string para preservar precisão I64F64) |
 | `steps` | inteiro | Número de passos de integração |
 | `export_interval` | inteiro | (opcional) Salvar trajetória a cada N passos. Padrão: 1 |
+| `metadata` | objeto | (opcional) Metadados acadêmicos para scripts `.bep` |
 
-Veja `cli_3bep/examples/kepler_orbit.json` para um exemplo funcional.
+Veja `cli_3bep/examples/kepler_orbit.json` para um exemplo funcional, ou navegue `scripts/` para cenários pré-configurados.
+
+## Biblioteca de Scripts
+
+O diretório `scripts/` contém cenários de simulação pré-configurados prontos para uso:
+
+```bash
+# Cenários astrofísicos
+cargo run --release -- validate ../scripts/astro/kepler_circular.bep
+cargo run --release -- validate ../scripts/astro/binary_star.bep
+
+# Dinâmica caótica
+cargo run --release -- validate ../scripts/chaos/three_body_figure8.bep
+cargo run --release -- validate ../scripts/chaos/three_body_burrau.bep
+```
+
+Arquivos `.bep` são JSON padrão com metadados acadêmicos opcionais (título, referências, tags). Veja [scripts/README.md](scripts/README.md) para o catálogo completo.
 
 ## Arquitetura do Motor
 
@@ -123,8 +144,10 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
   - `nbody.rs` — Sistema genérico de N corpos com RK4 e Leapfrog
 * `core_engine/tests/` — Suíte de Tolerância Zero (13 módulos, 30 testes). Veja [TESTS.md](TESTS.md).
 * `core_engine/examples/` — Demonstrações executáveis para verificação independente.
-* `cli_3bep/` — Validador JSON sem fricção. Veja [Validador CLI](#validador-cli-auditoria-sem-friccao) acima.
+* `cli_3bep/` — Validador JSON/BEP sem fricção com certificados SHA-256. Veja [Validador CLI](#validador-cli-auditoria-sem-friccao) acima.
+* `scripts/` — Cenários de simulação pré-configurados (astro + caos). Veja [scripts/README.md](scripts/README.md).
 * `preprint_archaeology/` — Evidências, divergências mapeadas, e selos de integridade criptográfica *(em breve)*.
+* `VERIFY.md` — Protocolo de verificação cross-platform com hashes SHA-256 de referência.
 
 ## Alegações Científicas Chave (Provadas por Testes)
 
@@ -151,7 +174,7 @@ Este projeto existe para servir à ciência, não para controlá-la. O motor San
 
 **Proponha um Teste.** Se você acredita que existe um cenário físico que desafia nosso motor determinístico, abra uma Issue com suas condições iniciais em formato JSON. Nós executaremos, publicaremos os resultados de forma transparente, e adicionaremos à suíte de testes se revelar algo significativo. Não temos medo de estar errados — temos medo de não saber.
 
-**Envie Resultados Cross-Platform.** Rode `cargo test` na sua máquina e compartilhe a saída. Cada nova arquitetura que produz resultados bit-idênticos fortalece a prova. Cada uma que não produz revela algo que precisamos corrigir. Ambos os resultados são valiosos.
+**Envie Resultados Cross-Platform.** Rode `cargo test` na sua máquina e compartilhe a saída. Veja [VERIFY.md](VERIFY.md) para o protocolo completo de verificação, hashes SHA-256 de referência, e a tabela comunitária de verificação. Cada nova arquitetura que produz resultados bit-idênticos fortalece a prova. Cada uma que não produz revela algo que precisamos corrigir. Ambos os resultados são valiosos.
 
 **Desafie Nossas Alegações.** Cada uma das 12 alegações científicas listadas acima está ligada a um teste específico e reprodutível. Se você encontrar uma falha na nossa metodologia, um bug na nossa matemática, ou uma suposição que não justificamos — nos diga. O propósito inteiro de publicar o motor é convidar escrutínio.
 
