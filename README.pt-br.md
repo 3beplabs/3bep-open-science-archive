@@ -15,13 +15,13 @@ Nós do **3BEP Labs** estabelecemos o "Santuário", um núcleo construído para 
 Este repositório encerra as tolerâncias perdoáveis. Ele será o repositório jurídico-tecnológico para a nossa missão:
 
 1. **Digital Twin of Science (Cemitério de Teorias):** Identificaremos artigos acadêmicos (arXiv, e similares) em que a fragilidade do modelo desmorona a estabilidade propagada. Reproduziremos os cálculos base através da matemática bit-a-bit do 3BEP para provar o momento e instante exatos de quando suas teses desabam no infinito;
-2. **Prior Art Incontestável:** O código base de matemática do 'Santuário' será auditável publicamente em Rust rigorosamente testado, desmentindo que dependemos de truques para estabilizar as simulações, entregando a garantia de Provas ZK-STARK.
+2. **Prior Art Incontestavel:** O codigo base de matematica do 'Santuario' sera auditavel publicamente em Rust rigorosamente testado, desmentindo que dependemos de truques para estabilizar as simulacoes, com selos de integridade criptografica no roadmap.
 
 **"A verdade física pertence a todos, mas a exploração comercial da nossa precisão exige o reconhecimento direto do Arquiteto."**
 
 ## Licença AGPL v3.0 e Soberania Tecnológica
 
-Nosso trabalho — os Motores I64F64 nativos, os Lacres STARK, e a translação do Universo via Rust puro (`#![no_std]`) — é protegido e exposto através da [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
+Nosso trabalho — os Motores I64F64 nativos, o pipeline de verificacao deterministica, e a traducao do Universo via Rust puro (`#![no_std]`) — e protegido e exposto atraves da [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
 
 Isso confere o peso definitivo da estratégia de soberania:
 - **Para Auditar a Ciência (Acadêmicos):** A transparência é absoluta. Sintam-se convidados a clonar, auditar e testar nossa infra-estrutura como prova de autoridade.
@@ -68,7 +68,7 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
 * `core_engine/tests/` — Suíte de Tolerância Zero (13 módulos, 30 testes). Veja [TESTS.md](TESTS.md).
 * `core_engine/examples/` — Demonstrações executáveis para verificação independente.
 * `cli_3bep/` — Ferramentas e integradores I64F64 *(em breve)*.
-* `preprint_archaeology/` — Evidências, ZK-STARKs e divergências mapeadas *(em breve)*.
+* `preprint_archaeology/` — Evidencias, divergencias mapeadas, e selos de integridade criptografica *(em breve)*.
 
 ## Alegações Científicas Chave (Provadas por Testes)
 

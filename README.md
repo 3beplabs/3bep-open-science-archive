@@ -15,13 +15,13 @@ We at **3BEP Labs** established the "Sanctuary", a core built to house only stri
 This repository ends forgivable tolerances. It will serve as our legal-technological repository for the following mission:
 
 1. **Digital Twin of Science (Theory Graveyard):** We will identify academic papers (from arXiv, etc.) where model fragility collapses propagated stability. We will reproduce their baseline calculations using 3BEP's bit-perfect math to prove the exact moment and tick when their theses collapse into infinity.
-2. **Indisputable Prior Art:** The mathematical codebase of the 'Sanctuary' will be publicly auditable in rigorously tested pure Rust, debunking claims that we rely on tricks to stabilize simulations, and delivering the guarantee of ZK-STARK Proofs.
+2. **Indisputable Prior Art:** The mathematical codebase of the 'Sanctuary' will be publicly auditable in rigorously tested pure Rust, debunking claims that we rely on tricks to stabilize simulations, with cryptographic integrity seals on the roadmap.
 
 **"Physical truth belongs to everyone, but the commercial exploitation of our precision requires the direct acknowledgment of the Architect."**
 
 ## AGPL v3.0 License and Technological Sovereignty
 
-Our work—the native I64F64 Engines, STARK Seals, and the translation of the Universe via pure Rust (`#![no_std]`)—is protected and exposed through the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
+Our work—the native I64F64 Engines, the deterministic verification pipeline, and the translation of the Universe via pure Rust (`#![no_std]`)—is protected and exposed through the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
 
 This grants the definitive weight of our sovereignty strategy:
 - **For Science Auditing (Academics):** Absolute transparency. Feel invited to clone, audit, and test our infrastructure as proof of authority.
@@ -68,7 +68,7 @@ Both integrators are available for the fixed 3-body system and for the generic N
 * `core_engine/tests/` — Zero Tolerance test suite (13 modules, 30 tests). See [TESTS.md](TESTS.md).
 * `core_engine/examples/` — Runnable demonstrations for independent verification.
 * `cli_3bep/` — I64F64 integrators and tools *(coming soon)*.
-* `preprint_archaeology/` — Evidence, ZK-STARKs, and mapped divergences *(coming soon)*.
+* `preprint_archaeology/` — Evidence, mapped divergences, and cryptographic integrity seals *(coming soon)*.
 
 ## Key Scientific Claims (Proven by Tests)
 

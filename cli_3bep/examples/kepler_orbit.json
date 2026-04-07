@@ -1,0 +1,10 @@
+{
+  "experiment_name": "Kepler_Circular_Orbit_Validation",
+  "bodies": [
+    { "mass": 1000.0, "pos": [0, 0, 0], "vel": [0, 0, 0] },
+    { "mass": 1.0, "pos": [10, 0, 0], "vel": [0, 10, 0] }
+  ],
+  "integrator": "leapfrog",
+  "dt": "0.01",
+  "steps": 6280
+}
