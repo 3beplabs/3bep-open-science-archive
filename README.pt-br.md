@@ -84,6 +84,9 @@ cargo run --release -- validate meu_experimento.json --export json
 
 # Gerar certificado SVG de reprodutibilidade (lacrado com SHA-256)
 cargo run --release -- validate meu_experimento.json --certificate
+
+# Pacote completo de auditoria (trajetoria + resultados + certificado — recomendado para publicacoes)
+cargo run --release -- validate meu_experimento.json --trajectory --certificate --export csv
 ```
 
 ### 3. A saída inclui:
@@ -147,7 +150,7 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
 * `core_engine/examples/` — Demonstrações executáveis para verificação independente.
 * `cli_3bep/` — Validador JSON/BEP sem fricção com certificados SHA-256. Veja [Validador CLI](#validador-cli-auditoria-sem-friccao) acima.
 * `scripts/` — Cenários de simulação pré-configurados (astro + caos). Veja [scripts/README.md](scripts/README.md).
-* `preprint_archaeology/` — Evidências, divergências mapeadas, e selos de integridade criptográfica *(em breve)*.
+* `preprint_archaeology/` — Preprints do arXiv auditados com reproduções determinísticas I64F64, certificados SVG lacrados com SHA-256, e evidências de divergência. Cada subpasta contém o pacote completo de auditoria: scripts `.bep`, CSVs de trajetória, CSVs de resultados, certificados SVG, e um `audit_report.md` formal.
 * `VERIFY.md` — Protocolo de verificação cross-platform com hashes SHA-256 de referência.
 
 ## Alegações Científicas Chave (Provadas por Testes)
@@ -181,7 +184,7 @@ Este projeto existe para servir à ciência, não para controlá-la. O motor San
 
 **Use a CLI para Seus Papers.** O validador `cli_3bep` foi construído para que físicos possam verificar suas próprias simulações sem aprender Rust. Se você publicar um paper usando dados de preprints do arXiv, pode rodar suas condições iniciais pelo nosso motor e incluir o hash determinístico nos seus materiais suplementares como certificado de reprodutibilidade.
 
-**O Que Isto Não É.** Isto não é um produto comercial disfarçado de open source. Isto não é uma ferramenta projetada para envergonhar pesquisadores. O "Cemitério de Teorias" existe porque a reprodutibilidade numérica é uma crise na física computacional — não porque nos consideramos superiores à comunidade acadêmica. Nós construímos o chão; queremos que todos pisem nele.
+**O Que Isto Não É.** Isto não é um produto comercial disfarçado de open source. Isto não é uma ferramenta projetada para envergonhar pesquisadores. A Arqueologia de Preprints existe porque a reprodutibilidade numérica é uma crise na física computacional — não porque nos consideramos superiores à comunidade acadêmica. Nós construímos o chão; queremos que todos pisem nele.
 
 > *"O objetivo não é provar que estamos certos. O objetivo é tornar impossível que qualquer um — incluindo nós mesmos — esteja errado sem saber."*
 

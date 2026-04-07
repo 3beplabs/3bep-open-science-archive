@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "title": "Lyapunov Divergence Audit — Chaotic 3-Body (Reference Run)",
+    "category": "chaos",
+    "description": "Deterministic I64F64 reference trajectory for a chaotic 3-body system. Uses the same initial conditions as the f64_divergence test suite, which proved that IEEE 754 and I64F64 diverge at step 507. This run provides the ground-truth baseline for auditing arXiv:2603.24675.",
+    "author": "3BEP Labs Open Science Audits",
+    "references": [
+      "Trani, A. A., Di Cintio, P., & Ginolfi, M. (2026). Beyond the Largest Lyapunov Exponent: Entropy-Based Diagnostics of Chaos in Henon-Heiles and N-Body Dynamics. arXiv:2603.24675"
+    ],
+    "tags": ["lyapunov-audit", "3-body-chaos", "I64F64-reference", "theory-graveyard", "f64-divergence"],
+    "expected_claims": ["energy_conservation", "momentum_conservation", "deterministic_trajectory"]
+  },
+  "experiment_name": "arXiv_2603_24675_Lyapunov_Reference",
+  "bodies": [
+    { "mass": 300.0, "pos": [10.0, 5.0, 0.0], "vel": [1.5, -1.0, 0.0] },
+    { "mass": 450.0, "pos": [-8.0, 2.0, 0.0], "vel": [-1.0, 2.5, 0.0] },
+    { "mass": 250.0, "pos": [2.0, -10.0, 0.0], "vel": [0.5, 0.5, 0.0] }
+  ],
+  "integrator": "rk4",
+  "dt": "0.01",
+  "steps": 5000,
+  "export_interval": 10
+}

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="490" viewBox="0 0 900 490">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="50%" stop-color="#ffaa00"/>
+      <stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+    <linearGradient id="seal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd700" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffd700" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fundo com borda dourada -->
+  <rect x="2" y="2" width="896" height="486" rx="14" ry="14" fill="url(#bg)" stroke="url(#gold)" stroke-width="2.5"/>
+
+  <!-- Selo circular decorativo (canto superior direito) -->
+  <circle cx="830" cy="70" r="42" fill="url(#seal)" stroke="#ffd700" stroke-width="1.8" stroke-dasharray="5 3"/>
+  <text x="830" y="65" text-anchor="middle" fill="#ffd700" font-family="monospace" font-size="13" font-weight="bold">3BEP</text>
+  <text x="830" y="82" text-anchor="middle" fill="#ffd700" font-family="monospace" font-size="11">I64F64</text>
+
+  <!-- Titulo principal -->
+  <text x="40" y="52" fill="#ffd700" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="bold" letter-spacing="2">DETERMINISTIC REPRODUCIBILITY VERIFIED</text>
+
+  <!-- Linha separadora -->
+  <line x1="40" y1="68" x2="770" y2="68" stroke="#ffd700" stroke-width="0.8" stroke-opacity="0.5"/>
+
+  <!-- Titulo do experimento -->
+  <text x="40" y="100" fill="#e0e0e0" font-family="'Segoe UI', Arial, sans-serif" font-size="17">Lyapunov Divergence Audit — Chaotic 3-Body (Reference Run)</text>
+
+  <!-- Grid de informacoes -->
+  <text x="40" y="145" fill="#888" font-family="monospace" font-size="13">ENGINE</text>
+  <text x="200" y="145" fill="#ffffff" font-family="monospace" font-size="13">3BEP Sanctuary v0.1.0  |  I64F64 (128-bit Fixed Point)</text>
+
+  <text x="40" y="172" fill="#888" font-family="monospace" font-size="13">INTEGRATOR</text>
+  <text x="200" y="172" fill="#ffffff" font-family="monospace" font-size="13">RK4  |  5000 steps</text>
+
+  <text x="40" y="199" fill="#888" font-family="monospace" font-size="13">AUTHOR</text>
+  <text x="200" y="199" fill="#ffffff" font-family="monospace" font-size="13">3BEP Labs Open Science Audits</text>
+
+  <!-- Hashes SHA-256 -->
+  <line x1="40" y1="220" x2="860" y2="220" stroke="#333" stroke-width="0.5"/>
+
+  <text x="40" y="248" fill="#888" font-family="monospace" font-size="12">INPUT  SHA-256</text>
+  <text x="200" y="248" fill="#00ff88" font-family="monospace" font-size="12">03ef0ef2111a3e9f28668dca9a15162619352e7de23c8b2326d65394aac33648</text>
+
+  <text x="40" y="275" fill="#888" font-family="monospace" font-size="12">OUTPUT SHA-256</text>
+  <text x="200" y="275" fill="#00ff88" font-family="monospace" font-size="12">7b8f6620f3bae6a82ae0c50644a22000c0307e78af95c9032d71b95ddc8c9fde</text>
+
+  <!-- Metricas de conservacao -->
+  <line x1="40" y1="296" x2="860" y2="296" stroke="#333" stroke-width="0.5"/>
+
+  <text x="40" y="324" fill="#888" font-family="monospace" font-size="13">ENERGY DRIFT</text>
+  <text x="200" y="324" fill="#ffffff" font-family="monospace" font-size="13">384570.09577591485937616845</text>
+
+  <text x="40" y="351" fill="#888" font-family="monospace" font-size="13">MOMENTUM dP</text>
+  <text x="200" y="351" fill="#ffffff" font-family="monospace" font-size="13">dPx=0.00000000000030237585  dPy=0.0000000000003699027</text>
+
+  <!-- Timestamp e rodape -->
+  <line x1="40" y1="378" x2="860" y2="378" stroke="#ffd700" stroke-width="0.8" stroke-opacity="0.3"/>
+
+  <text x="40" y="406" fill="#666" font-family="monospace" font-size="12">GENERATED</text>
+  <text x="200" y="406" fill="#999" font-family="monospace" font-size="12">2026-04-07T20:46:54Z</text>
+
+  <!-- Rodape institucional -->
+  <text x="40" y="460" fill="#555" font-family="'Segoe UI', Arial, sans-serif" font-size="12">3BEP Labs  |  The Infrastructure of Physical Truth  |  github.com/3beplabs/3bep-open-science-archive</text>
+
+  <!-- Indicador de verificacao (canto inferior direito) -->
+  <rect x="730" y="440" width="140" height="30" rx="6" ry="6" fill="none" stroke="#00ff88" stroke-width="1.5"/>
+  <text x="800" y="460" text-anchor="middle" fill="#00ff88" font-family="monospace" font-size="13" font-weight="bold">BIT-PERFECT</text>
+</svg>

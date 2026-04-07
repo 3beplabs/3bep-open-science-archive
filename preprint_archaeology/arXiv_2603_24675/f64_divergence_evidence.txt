@@ -1,0 +1,23 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running tests\f64_divergence.rs (target\debug\deps\f64_divergence-229a5905407a15a4.exe)
+
+running 2 tests
+f64 run A vs B (same binary): match = true
+test test_f64_cross_run_consistency_vs_i64f64 ... ok
+DIVERGENCE DETECTED at step 507!
+  I64F64 Body0.x = 12.837283068546633
+  f64    Body0.x = 12.837283068412615
+  Delta          = 1.340172417485519e-10
+
+Final state after 5,000 steps:
+  I64F64 Body0.x = 158.406615602955128
+  f64    Body0.x = 158.406643767280769
+  Final delta    = 0.000028
+
+Conclusion: IEEE 754 and I64F64 diverged at step 507 (of 5,000).
+This proves that floating-point arithmetic produces DIFFERENT trajectories
+than deterministic fixed-point arithmetic for the same initial conditions.
+test test_f64_vs_i64f64_determinism_divergence ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+

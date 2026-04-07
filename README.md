@@ -84,6 +84,9 @@ cargo run --release -- validate my_experiment.json --export json
 
 # Generate SVG reproducibility certificate (SHA-256 sealed)
 cargo run --release -- validate my_experiment.json --certificate
+
+# Full audit package (trajectory + results + certificate — recommended for publications)
+cargo run --release -- validate my_experiment.json --trajectory --certificate --export csv
 ```
 
 ### 3. Output includes:
@@ -147,7 +150,7 @@ Both integrators are available for the fixed 3-body system and for the generic N
 * `core_engine/examples/` — Runnable demonstrations for independent verification.
 * `cli_3bep/` — Zero-friction JSON/BEP validator with SHA-256 certificates. See [CLI Validator](#cli-validator-zero-friction-auditing) above.
 * `scripts/` — Pre-configured simulation scenarios (astro + chaos). See [scripts/README.md](scripts/README.md).
-* `preprint_archaeology/` — Evidence, mapped divergences, and cryptographic integrity seals *(coming soon)*.
+* `preprint_archaeology/` — Audited arXiv preprints with deterministic I64F64 reproductions, SHA-256 sealed certificates, and divergence evidence. Each subfolder contains the full audit package: `.bep` scripts, trajectory CSVs, results CSVs, SVG certificates, and a formal `audit_report.md`.
 * `VERIFY.md` — Cross-platform verification protocol with reference SHA-256 hashes.
 
 ## Key Scientific Claims (Proven by Tests)
@@ -181,7 +184,7 @@ This project exists to serve science, not to gatekeep it. The Sanctuary engine b
 
 **Use the CLI for Your Papers.** The `cli_3bep` validator was built so that physicists can verify their own simulations without learning Rust. If you publish a paper using arXiv preprint data, you can run your initial conditions through our engine and include the deterministic hash in your supplementary materials as a reproducibility certificate.
 
-**What This Is Not.** This is not a commercial product disguised as open source. This is not a tool designed to shame researchers. The "Theory Graveyard" exists because numerical reproducibility is a crisis in computational physics — not because we consider ourselves superior to the academic community. We built the floor; we want everyone to stand on it.
+**What This Is Not.** This is not a commercial product disguised as open source. This is not a tool designed to shame researchers. The Preprint Archaeology exists because numerical reproducibility is a crisis in computational physics — not because we consider ourselves superior to the academic community. We built the floor; we want everyone to stand on it.
 
 > *"The goal is not to prove that we are right. The goal is to make it impossible for anyone — including ourselves — to be wrong without knowing it."*
 

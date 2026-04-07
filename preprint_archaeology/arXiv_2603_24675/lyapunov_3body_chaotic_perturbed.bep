@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "title": "Lyapunov Divergence Audit — Chaotic 3-Body (Perturbed Run)",
+    "category": "chaos",
+    "description": "Epsilon-perturbed I64F64 trajectory. Body 0 position x is shifted by +0.000001 (1e-6) from the reference run. In a chaotic system, this microscopic perturbation should grow exponentially, allowing us to compute the true Lyapunov exponent under deterministic arithmetic — free of floating-point noise.",
+    "author": "3BEP Labs Open Science Audits",
+    "references": [
+      "Trani, A. A., Di Cintio, P., & Ginolfi, M. (2026). Beyond the Largest Lyapunov Exponent: Entropy-Based Diagnostics of Chaos in Henon-Heiles and N-Body Dynamics. arXiv:2603.24675"
+    ],
+    "tags": ["lyapunov-audit", "3-body-chaos", "I64F64-perturbed", "epsilon-perturbation", "theory-graveyard"],
+    "expected_claims": ["energy_conservation", "momentum_conservation", "deterministic_trajectory"]
+  },
+  "experiment_name": "arXiv_2603_24675_Lyapunov_Perturbed",
+  "bodies": [
+    { "mass": 300.0, "pos": [10.000001, 5.0, 0.0], "vel": [1.5, -1.0, 0.0] },
+    { "mass": 450.0, "pos": [-8.0, 2.0, 0.0], "vel": [-1.0, 2.5, 0.0] },
+    { "mass": 250.0, "pos": [2.0, -10.0, 0.0], "vel": [0.5, 0.5, 0.0] }
+  ],
+  "integrator": "rk4",
+  "dt": "0.01",
+  "steps": 5000,
+  "export_interval": 10
+}

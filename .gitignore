@@ -40,3 +40,6 @@ Thumbs.db
 *_results.json
 *_trajectory.csv
 *_certificate.svg
+
+# Allow evidence files inside Preprint Archaeology
+!preprint_archaeology/**
