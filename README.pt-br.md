@@ -15,16 +15,16 @@ Nós do **3BEP Labs** estabelecemos o "Santuário", um núcleo construído para 
 Este repositório encerra as tolerâncias perdoáveis. Ele será o repositório jurídico-tecnológico para a nossa missão:
 
 1. **Digital Twin of Science (Cemitério de Teorias):** Identificaremos artigos acadêmicos (arXiv, e similares) em que a fragilidade do modelo desmorona a estabilidade propagada. Reproduziremos os cálculos base através da matemática bit-a-bit do 3BEP para provar o momento e instante exatos de quando suas teses desabam no infinito;
-2. **Prior Art Incontestavel:** O codigo base de matematica do 'Santuario' sera auditavel publicamente em Rust rigorosamente testado, desmentindo que dependemos de truques para estabilizar as simulacoes, com selos de integridade criptografica no roadmap.
+2. **Prior Art Incontestável:** O código base de matemática do 'Santuário' será auditável publicamente em Rust rigorosamente testado, desmentindo que dependemos de truques para estabilizar as simulações, com selos de integridade criptográfica no roadmap.
 
 **"A verdade física pertence a todos, mas a exploração comercial da nossa precisão exige o reconhecimento direto do Arquiteto."**
 
 ## Licença AGPL v3.0 e Soberania Tecnológica
 
-Nosso trabalho — os Motores I64F64 nativos, o pipeline de verificacao deterministica, e a traducao do Universo via Rust puro (`#![no_std]`) — e protegido e exposto atraves da [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
+Nosso trabalho — os Motores I64F64 nativos, o pipeline de verificação determinística, e a tradução do Universo via Rust puro (`#![no_std]`) — é protegido e exposto através da [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
 
 Isso confere o peso definitivo da estratégia de soberania:
-- **Para Auditar a Ciência (Acadêmicos):** A transparência é absoluta. Sintam-se convidados a clonar, auditar e testar nossa infra-estrutura como prova de autoridade.
+- **Para Auditar a Ciência (Acadêmicos):** A transparência é absoluta. Sintam-se convidados a clonar, auditar e testar nossa infraestrutura como prova de autoridade.
 - **Para Exibir Rentabilidade (Cloud/SaaS/Corporações):** A 'Brecha de Serviços Cloud' foi lacrada. Aqueles que usarem de nosso motor determinístico via rede ou serviços devem abrir 100% de seu ecossistema. Qualquer comercialização ou adaptação "software-as-a-service" que procure escapar destas diretrizes requer estritamente o recolhimento de uma **Licença Comercial (Dual-Licensing)** via contato conosco.
 
 ## Como Auditar (Guia Rápido)
@@ -44,11 +44,11 @@ cargo run --example example_1_stable_orbit --release
 cargo run --example extreme_stress_test --release
 ```
 
-Todos os testes validam determinismo bit-a-bit, conservacao de energia, imunidade a singularidades, precisao analitica Kepleriana, integracao simpletica, prova de divergencia IEEE 754, escalabilidade N-body, conservacao de momento, e reversibilidade temporal. Veja [TESTS.md](TESTS.md) para o registro detalhado de execucao.
+Todos os testes validam determinismo bit-a-bit, conservação de energia, imunidade a singularidades, precisão analítica Kepleriana, integração simplética, prova de divergência IEEE 754, escalabilidade N-body, conservação de momento, e reversibilidade temporal. Veja [TESTS.md](TESTS.md) para o registro detalhado de execução.
 
-## Validador CLI (Auditoria sem Friccao)
+## Validador CLI (Auditoria sem Fricção)
 
-A ferramenta `cli_3bep` permite que pesquisadores validem fisica **sem escrever nenhuma linha de Rust**. Defina seu experimento em JSON e execute:
+A ferramenta `cli_3bep` permite que pesquisadores validem física **sem escrever nenhuma linha de Rust**. Defina seu experimento em JSON e execute:
 
 ### 1. Crie seu arquivo de experimento (`meu_experimento.json`):
 
@@ -65,40 +65,40 @@ A ferramenta `cli_3bep` permite que pesquisadores validem fisica **sem escrever 
 }
 ```
 
-### 2. Execute a validacao:
+### 2. Execute a validação:
 
 ```bash
-# Simulacao I64F64 basica com relatorio de energia/momento
+# Simulação I64F64 básica com relatório de energia/momento
 cd cli_3bep
 cargo run --release -- validate meu_experimento.json
 
-# Exportar trajetoria completa em CSV (posicao, velocidade, energia a cada N passos)
+# Exportar trajetória completa em CSV (posição, velocidade, energia a cada N passos)
 cargo run --release -- validate meu_experimento.json --trajectory
 
-# Comparar I64F64 vs IEEE 754 (f64) — veja a divergencia exata
+# Comparar I64F64 vs IEEE 754 (f64) — veja a divergência exata
 cargo run --release -- validate meu_experimento.json --compare-with-f64
 
-# Exportar estado final como JSON (inclui hash deterministico)
+# Exportar estado final como JSON (inclui hash determinístico)
 cargo run --release -- validate meu_experimento.json --export json
 ```
 
-### 3. A saida inclui:
-- **Conservacao de energia** (inicial vs final, drift)
-- **Conservacao de momento** (dPx, dPy com 14 casas decimais)
-- **Estado final** de todos os corpos (posicao + velocidade)
-- **Hash deterministico** (fingerprint FNV-1a para reprodutibilidade)
-- **Trajetoria CSV completa** (ao usar `--trajectory`): step, time, body, pos_xyz, vel_xyz, energia, momento — pronto para matplotlib/gnuplot
-- **Comparacao IEEE 754** (ao usar `--compare-with-f64`)
+### 3. A saída inclui:
+- **Conservação de energia** (inicial vs final, drift)
+- **Conservação de momento** (dPx, dPy com 14 casas decimais)
+- **Estado final** de todos os corpos (posição + velocidade)
+- **Hash determinístico** (fingerprint FNV-1a para reprodutibilidade)
+- **Trajetória CSV completa** (ao usar `--trajectory`): step, time, body, pos_xyz, vel_xyz, energia, momento — pronto para matplotlib/gnuplot
+- **Comparação IEEE 754** (ao usar `--compare-with-f64`)
 
-### Referencia dos Campos JSON:
-| Campo | Tipo | Descricao |
+### Referência dos Campos JSON:
+| Campo | Tipo | Descrição |
 |---|---|---|
-| `experiment_name` | string | Nome para identificacao |
+| `experiment_name` | string | Nome para identificação |
 | `bodies` | array | Lista de corpos com mass, pos[x,y,z], vel[x,y,z] |
 | `integrator` | string | `"rk4"` ou `"leapfrog"` |
-| `dt` | string | Passo temporal (string para preservar precisao I64F64) |
-| `steps` | inteiro | Numero de passos de integracao |
-| `export_interval` | inteiro | (opcional) Salvar trajetoria a cada N passos. Padrao: 1 |
+| `dt` | string | Passo temporal (string para preservar precisão I64F64) |
+| `steps` | inteiro | Número de passos de integração |
+| `export_interval` | inteiro | (opcional) Salvar trajetória a cada N passos. Padrão: 1 |
 
 Veja `cli_3bep/examples/kepler_orbit.json` para um exemplo funcional.
 
@@ -121,10 +121,10 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
   - `rk4.rs` — Integrador Runge-Kutta clássico de 4ª ordem (3 corpos)
   - `leapfrog.rs` — Integrador simplético Velocity Verlet (3 corpos)
   - `nbody.rs` — Sistema genérico de N corpos com RK4 e Leapfrog
-* `core_engine/tests/` — Suite de Tolerancia Zero (13 modulos, 30 testes). Veja [TESTS.md](TESTS.md).
-* `core_engine/examples/` — Demonstracoes executaveis para verificacao independente.
-* `cli_3bep/` — Validador JSON sem friccao. Veja [Validador CLI](#validador-cli-auditoria-sem-friccao) acima.
-* `preprint_archaeology/` — Evidencias, divergencias mapeadas, e selos de integridade criptografica *(em breve)*.
+* `core_engine/tests/` — Suíte de Tolerância Zero (13 módulos, 30 testes). Veja [TESTS.md](TESTS.md).
+* `core_engine/examples/` — Demonstrações executáveis para verificação independente.
+* `cli_3bep/` — Validador JSON sem fricção. Veja [Validador CLI](#validador-cli-auditoria-sem-friccao) acima.
+* `preprint_archaeology/` — Evidências, divergências mapeadas, e selos de integridade criptográfica *(em breve)*.
 
 ## Alegações Científicas Chave (Provadas por Testes)
 
@@ -141,25 +141,25 @@ Ambos os integradores estão disponíveis para o sistema fixo de 3 corpos e para
 11. **Verificação de Ordem de Convergência:** Erro de energia RK4 converge na razão **32.0** (confirmando O(h⁵)), erro de posição Leapfrog converge na razão **4.0** (confirmando O(h²)). Ambos coincidem com previsões teóricas a 3+ dígitos significativos. *(Teste: convergence_order)*
 12. **Determinismo Cross-Platform (Provado Empiricamente):** Todos os 30 testes produzem resultados **bit-a-bit idênticos** em 3 máquinas: AMD Ryzen (Windows 11), AMD EPYC (Ubuntu 24.04), e Intel Core i5-6200U (Windows 10). Cada dígito, cada bit, cada trajetória — idêntica. *(Veja: TESTS.md, seção Cross-Platform)*
 
-## Referencias
+## Referências
 
-Todas as constantes fisicas, algoritmos e alegacoes teoricas sao respaldados por fontes academicas primarias. Veja [REFERENCES.md](REFERENCES.md) para a lista completa de citacoes incluindo valores NIST CODATA, papers originais de Runge (1895), Verlet (1967), Noether (1918), e o padrao IEEE 754-2019.
+Todas as constantes físicas, algoritmos e alegações teóricas são respaldados por fontes acadêmicas primárias. Veja [REFERENCES.md](REFERENCES.md) para a lista completa de citações incluindo valores NIST CODATA, papers originais de Runge (1895), Verlet (1967), Noether (1918), e o padrão IEEE 754-2019.
 
-## Contribuicao & Ciencia Aberta
+## Contribuição & Ciência Aberta
 
-Este projeto existe para servir a ciencia, nao para controla-la. O motor Santuario pertence a comunidade sob a licenca AGPL-3.0, e convidamos ativamente a participacao:
+Este projeto existe para servir à ciência, não para controlá-la. O motor Santuário pertence à comunidade sob a licença AGPL-3.0, e convidamos ativamente à participação:
 
-**Proponha um Teste.** Se voce acredita que existe um cenario fisico que desafia nosso motor deterministico, abra uma Issue com suas condicoes iniciais em formato JSON. Nos executaremos, publicaremos os resultados de forma transparente, e adicionaremos a suite de testes se revelar algo significativo. Nao temos medo de estar errados — temos medo de nao saber.
+**Proponha um Teste.** Se você acredita que existe um cenário físico que desafia nosso motor determinístico, abra uma Issue com suas condições iniciais em formato JSON. Nós executaremos, publicaremos os resultados de forma transparente, e adicionaremos à suíte de testes se revelar algo significativo. Não temos medo de estar errados — temos medo de não saber.
 
-**Envie Resultados Cross-Platform.** Rode `cargo test` na sua maquina e compartilhe a saida. Cada nova arquitetura que produz resultados bit-identicos fortalece a prova. Cada uma que nao produz revela algo que precisamos corrigir. Ambos os resultados sao valiosos.
+**Envie Resultados Cross-Platform.** Rode `cargo test` na sua máquina e compartilhe a saída. Cada nova arquitetura que produz resultados bit-idênticos fortalece a prova. Cada uma que não produz revela algo que precisamos corrigir. Ambos os resultados são valiosos.
 
-**Desafie Nossas Alegacoes.** Cada uma das 12 alegacoes cientificas listadas acima esta ligada a um teste especifico e reproduzivel. Se voce encontrar uma falha na nossa metodologia, um bug na nossa matematica, ou uma suposicao que nao justificamos — nos diga. O proposito inteiro de publicar o motor e convidar escrutinio.
+**Desafie Nossas Alegações.** Cada uma das 12 alegações científicas listadas acima está ligada a um teste específico e reprodutível. Se você encontrar uma falha na nossa metodologia, um bug na nossa matemática, ou uma suposição que não justificamos — nos diga. O propósito inteiro de publicar o motor é convidar escrutínio.
 
-**Use a CLI para Seus Papers.** O validador `cli_3bep` foi construido para que fisicos possam verificar suas proprias simulacoes sem aprender Rust. Se voce publicar um paper usando dados de preprints do arXiv, pode rodar suas condicoes iniciais pelo nosso motor e incluir o hash deterministico nos seus materiais suplementares como certificado de reprodutibilidade.
+**Use a CLI para Seus Papers.** O validador `cli_3bep` foi construído para que físicos possam verificar suas próprias simulações sem aprender Rust. Se você publicar um paper usando dados de preprints do arXiv, pode rodar suas condições iniciais pelo nosso motor e incluir o hash determinístico nos seus materiais suplementares como certificado de reprodutibilidade.
 
-**O Que Isto Nao E.** Isto nao e um produto comercial disfarcado de open source. Isto nao e uma ferramenta projetada para envergonhar pesquisadores. O "Cemiterio de Teorias" existe porque a reprodutibilidade numerica e uma crise na fisica computacional — nao porque nos consideramos superiores a comunidade academica. Nos construimos o chao; queremos que todos pisem nele.
+**O Que Isto Não É.** Isto não é um produto comercial disfarçado de open source. Isto não é uma ferramenta projetada para envergonhar pesquisadores. O "Cemitério de Teorias" existe porque a reprodutibilidade numérica é uma crise na física computacional — não porque nos consideramos superiores à comunidade acadêmica. Nós construímos o chão; queremos que todos pisem nele.
 
-> *"O objetivo nao e provar que estamos certos. O objetivo e tornar impossivel que qualquer um — incluindo nos mesmos — esteja errado sem saber."*
+> *"O objetivo não é provar que estamos certos. O objetivo é tornar impossível que qualquer um — incluindo nós mesmos — esteja errado sem saber."*
 
 ---
-**3BEP Labs** | A Infraestrutura da Verdade Fisica.
+**3BEP Labs** | A Infraestrutura da Verdade Física.
