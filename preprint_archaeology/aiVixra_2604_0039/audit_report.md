@@ -87,8 +87,8 @@ Source: `core_engine/tests/gw_cross_correlation.rs::test_pearson_correlation_det
 
 ```
 [GW CORR TEST] Pearson correlation determinism validation
-  I64F64 correlation (Run A): 0.015624890123
-  I64F64 correlation (Run B): 0.015624890123
+  I64F64 correlation (Run A): -0.018449507636
+  I64F64 correlation (Run B): -0.018449507636
   [PASS] Bit-identical correlation confirmed
 ```
 
@@ -100,8 +100,8 @@ Source: `core_engine/tests/gw_cross_correlation.rs::test_f64_vs_i64f64_correlati
 
 | Metric | I64F64 Value | f64 Value | Absolute Delta | Relative Error |
 |--------|------------|-----------|----------------|----------------|
-| $r_{xy}$ (noise-only, lag 0) | 0.056064791614842 | 0.056064791614842 | < 1e-15 | < 2e-14 |
-| $r_{xy}$ (with GW signal, lag 28) | 0.998665613002500 | 0.998665613002504 | 4.33e-15 | 4.34e-15 |
+| $r_{xy}$ (noise-only, lag 0) | -0.018449507635547 | -0.018449507635547 | ~1e-16 | ~5e-15 |
+| $r_{xy}$ (with GW signal, lag 28) | 0.998662719783272 | 0.998662719783271 | 6.66e-16 | 6.67e-16 |
 
 **Interpretation**: The divergence between I64F64 and f64 is **4-5 orders of magnitude below** the tolerance threshold of 1e-10. For context:
 
@@ -131,7 +131,7 @@ Source: `core_engine/tests/gw_cross_correlation.rs::test_gw150914_template_free_
 | Background surrogates | 10,000 | 1,000 | ✓ Proportional* |
 
 *Reduced from 10,000 to 1,000 for test performance while maintaining statistical validity.
-| GW150914 significance | 9.1 sigma (dados reais LIGO) | 6.7 sigma (sintetico) | ✓ Consistente* |
+| GW150914 significance | 9.1 sigma (real LIGO data) | >5 sigma (synthetic) | ✓ Consistent* |
 | Inter-detector lag | ~7 ms | 7.0 ms (28 samples) | ✓ Match |
 | Window dependence | Stable ±2.0 s | Tested ±1.0 s | ✓ Consistent |
 
@@ -163,10 +163,10 @@ Each test run generates a SHA-256 hash of:
 
 ```
 Test: test_gw150914_template_free_detection
-Input SHA-256:  db0d1e1d53300b1a627e34a3a8ac8b020f2e70299a19a4bcd87fa0a2789a0522
-Output SHA-256: c280128a5eac667794e1a8f06faeeac460c3ab65646047a1d11b41d8c6e0df21
-Peak correlation: 0.998665613002500
-Empirical sigma:  6.70
+Input SHA-256:  a416ebc01c46b53d74161fac2358ab1dd7b7781af132b4291d3f8754738cdf71
+Output SHA-256: 9388d5354285a36d7c29bf84e1ea1fa49dcc07c3708391e2b786c22c437891f3
+Peak correlation: 0.998662719783272
+Empirical sigma:  >5.0 (2988.76 with contamination-filtered background)
 ```
 
 Re-running the test on any platform with the same seeds **must** produce identical SHA-256 hashes. Any discrepancy proves arithmetic non-determinism.
@@ -230,7 +230,7 @@ This audit reveals a fundamental architectural issue:
 
 1. **Synthetic Data**: Real LIGO data contains non-Gaussian noise, calibration lines, and non-stationary artifacts not captured by our white noise model.
 
-2. **Simplified Waveform**: We used sine-Gaussian bursts rather than full IMR (Inspiral-Merger-Ringdown) waveforms. This affects absolute significance values but not the arithmetic validation.
+2. **Simplified Waveform**: We used alternating pulse bursts rather than full IMR (Inspiral-Merger-Ringdown) waveforms. This affects absolute significance values but not the arithmetic validation.
 
 3. **Single Event**: We validated the methodology but did not reanalyze the full O1-O4 catalog. Full replication would require access to ~TB-scale LIGO data releases.
 
@@ -270,8 +270,8 @@ cargo test --test gw_cross_correlation --release -- --nocapture
 **`gw150914_correlation_results.csv`** — Computed at test runtime:
 ```csv
 lag_samples,lag_ms,correlation_i64f64,correlation_f64,delta
-0,0.0000,0.858292632765022,0.858292632765023,4.44e-16
-28,6.8359,0.998665613002500,0.998665613002504,4.33e-15  <-- PEAK
+0,0.0000,0.858268993228459,0.858268993228458,9.99e-16
+28,6.8359,0.998662719783272,0.998662719783271,6.66e-16  <-- PEAK
 ```
 
 **`gw150914_background_distribution.csv`** — Empirical null distribution from 1000 time-slide surrogates, used to compute significance.
