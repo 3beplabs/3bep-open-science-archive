@@ -5,9 +5,9 @@ This directory contains deterministic I64F64 audits of arXiv preprints. Each sub
 | File | Purpose |
 |------|---------|
 | `audit_report.md` | Formal analysis and findings |
-| `*.bep` | Input scripts for the 3BEP Sanctuary engine |
-| `*_trajectory.csv` | Full trajectory data (position, velocity per step) |
-| `*_results.csv` | Final state of all bodies |
+| `*.bep` / `*.json` | Input scripts/configuration for the 3BEP engine |
+| `*_trajectory.csv` / `*_correlation_results.csv` | Full data output (trajectory or correlation coefficients) |
+| `*_results.csv` / `*_background_distribution.csv` | Final state / statistical distributions |
 | `*_certificate.svg` | SHA-256 cryptographic reproducibility seal |
 | `f64_divergence_evidence.txt` | IEEE 754 vs I64F64 divergence log |
 
@@ -22,6 +22,7 @@ The output SHA-256 hash **must match** the hash in the SVG certificate. Any disc
 
 ## Audited Papers
 
-| arXiv ID | Topic | Key Finding |
+| Paper ID | Topic | Key Finding |
 |----------|-------|-------------|
 | [2603.24675](arXiv_2603_24675/) | Lyapunov exponents in N-body dynamics | f64 diverges from I64F64 at step 507 of 5,000 |
+| [2604.0039](aiVixra_2604_0039/) | Template-free GW detection via cross-correlation | I64F64 reproduces 6.70 sigma detection; f64 divergence < 1e-13 (negligible for GW significance) |
