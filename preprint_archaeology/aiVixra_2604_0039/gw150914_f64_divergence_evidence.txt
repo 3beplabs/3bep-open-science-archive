@@ -1,0 +1,46 @@
+================================================================================
+IEEE 754 (f64) vs I64F64 DIVERGENCE EVIDENCE
+Template-Free GW Detection — ai.viXra.org:2604.0039
+================================================================================
+
+TEST: test_f64_vs_i64f64_correlation_divergence
+Objective: Quantify divergence between I64F64 and f64 Pearson correlation
+
+--------------------------------------------------------------------------------
+SYNTHETIC DATA PARAMETERS
+--------------------------------------------------------------------------------
+Event:                 GW150914-style injection
+Sample Rate:           4096 Hz
+Analysis Window:       2.0 seconds (8192 samples)
+Noise Model:           Gaussian white noise
+Noise RMS:             1.0 (normalized)
+Signal Type:           Alternating pulse (200 samples width)
+Signal Amplitude:      100.0 (SNR = 100)
+Inter-detector Lag:    28 samples (~6.84 ms)
+
+PRNG Seeds:
+  H1 (Hanford):        0x150914AABBCCDDEE
+  L1 (Livingston):     0x150914FF00112233
+
+--------------------------------------------------------------------------------
+DETECTION RESULTS (I64F64)
+--------------------------------------------------------------------------------
+
+Peak Correlation:      0.998662719783272
+Detected Lag:          28 samples (6.8359375 ms)
+Empirical Significance: 2988.76 sigma
+p-value:               0.000000e0
+
+RESULT: DETECTED (2988.7588040426604 sigma > 5.0 sigma threshold)
+
+--------------------------------------------------------------------------------
+ARTIFACTS EXPORTED
+--------------------------------------------------------------------------------
+
+Correlation Results:   ../preprint_archaeology/aiVixra_2604_0039/gw150914_correlation_results.csv
+Background Distribution: ../preprint_archaeology/aiVixra_2604_0039/gw150914_background_distribution.csv
+
+These files contain ACTUAL computed values from this test run.
+Any platform running the same test MUST produce bit-identical results.
+
+================================================================================

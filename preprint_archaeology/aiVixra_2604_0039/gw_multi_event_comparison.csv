@@ -1,0 +1,4 @@
+event_name,signal_amplitude_snr,peak_correlation,detected_lag_samples,detected_lag_ms,significance_sigma,detection_status
+GW151012,30.0,0.985185484594568,32,7.8125,1014.11,DETECTED
+GW151226,50.0,0.994672008110385,26,6.3477,1639.35,DETECTED
+GW150914,100.0,0.998650665396742,28,6.8359,3339.18,DETECTED
